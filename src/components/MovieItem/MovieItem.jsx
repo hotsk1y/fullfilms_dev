@@ -1,5 +1,4 @@
-import React, { useCallback, useRef } from "react"
-import { useEffect } from "react/cjs/react.development"
+import React from "react"
 import "./MovieItem.scss"
 import { Link } from "react-router-dom"
 
