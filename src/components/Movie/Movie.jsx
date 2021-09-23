@@ -16,6 +16,9 @@ export default function Movie() {
             .then(res => {
                 setInfo(res)
             })
+            .catch(e => {
+                setInfo({})
+            })
         fetchMovieCredits(movieId)
     }, [movieId])
 
@@ -25,7 +28,7 @@ export default function Movie() {
 
     return (
     <div className="movie">
-        Movie {info.title}
+        {info.title}
         <div>
             {info.descr}
         </div>

@@ -3,7 +3,9 @@ import "./Header.scss"
 import { Link } from "react-router-dom"
 import { fetchPopular } from "../../fetchingData"
 
-export default function Header({ query, setQuery, fetchSearch, setMovies, setIsLoaded, setIsSearch }) {
+import logo from '../Header/big-logo.png'
+
+export default function Header({ query, setQuery, setMovies, setIsLoaded, setIsSearch }) {
 
   const cleanData = () => {
     console.log(123)
@@ -19,7 +21,7 @@ export default function Header({ query, setQuery, fetchSearch, setMovies, setIsL
     <div className="header">
       <div className="wrapper">
           <Link className="logo" to="/" onClick={cleanData}>
-            <img src="big-logo.png" alt="" />
+            <img src={logo} alt=""></img>
           </Link>
         <div className="search">
           <input
@@ -29,9 +31,7 @@ export default function Header({ query, setQuery, fetchSearch, setMovies, setIsL
             onChange={e => setQuery(e.target.value)}
             value={query}
           />
-          <button className="search__btn" onClick={() => fetchSearch(query)}>
-            Найти
-          </button>
+          <Link to={query.trim().length > 0 && `/search/${query}`}><div className="search__btn">Поиск...</div></Link>
         </div>
       </div>
     </div>

@@ -6,7 +6,6 @@ export const fetchPopular = async () => {
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
     )
     const films = response.data.results
-    console.log(films)
     return films
   } catch (error) {
     console.log(error)

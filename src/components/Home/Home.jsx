@@ -4,7 +4,7 @@ import Hero from "../Hero/Hero"
 import Content from "../Content/Content"
 import axios from "axios"
 
-export default function Home({ movies, isSearch, setQuery, setIsSearch }) {
+export default function Home({ movies, isSearch }) {
   const [heroTitle, setHeroTitle] = useState(null)
   const [heroDescr, setHeroDescr] = useState(null)
   const [heroImg, setHeroImg] = useState(null)

@@ -7,8 +7,8 @@ import CircularProgress from "@mui/material/CircularProgress"
 import Movie from "./components/Movie/Movie"
 import NotFound from "./components/NotFound/NotFound"
 import Home from "./components/Home/Home"
+import Search from "./components/Search/Search"
 
-import axios from "axios"
 import { useEffect, useState } from "react"
 
 import { BrowserRouter, Route } from "react-router-dom"
@@ -31,26 +31,6 @@ const App = () => {
 
   const [query, setQuery] = useState("")
 
-  const fetchSearch = async () => {
-    setIsLoaded(false)
-    try {
-      if (query.trim() !== "") {
-        setIsSearch(true)
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/search/multi?api_key=${
-            process.env.REACT_APP_API_KEY
-          }&language=ru&query=${query.trimStart()}&page=1&include_adult=false`,
-        )
-        const searchResults = response.data.results
-        setMovies(searchResults)
-      }
-    } catch (error) {
-      setIsError(true)
-    } finally {
-      setIsLoaded(true)
-    }
-  }
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -60,18 +40,32 @@ const App = () => {
               query={query}
               setQuery={setQuery}
               setMovies={setMovies}
-              fetchSearch={fetchSearch}
               setIsSearch={setIsSearch}
               setIsLoaded={setIsLoaded}
             />
 
             <Switch>
               <Route exact path="/">
-                <Home movies={movies} isSearch={isSearch} setQuery={setQuery} setIsSearch={setIsSearch} />
+                <Home
+                  movies={movies}
+                  isSearch={isSearch}
+                  setQuery={setQuery}
+                  setIsSearch={setIsSearch}
+                />
               </Route>
 
-              <Route exact path="/:movieId">
+              <Route exact path="/info/:movieId">
                 <Movie />
+              </Route>
+
+              <Route exact path="/search/:query">
+                <Search
+                  setQuery={setQuery}
+                  setMovies={setMovies}
+                  setIsSearch={setIsSearch}
+                  setIsError={setIsError}
+                  setIsLoaded={setIsLoaded}
+                />
               </Route>
 
               <Route exact path="/*">

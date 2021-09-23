@@ -11,7 +11,7 @@ export default function Popular({ movies, isSearch }) {
   }, [])
 
   return (
-    <div className="popular">
+    <div className="content">
       <div className="container">
         <div className="section__title">
           {isSearch ? "Результаты поиска" : "Сейчас смотрят"}
