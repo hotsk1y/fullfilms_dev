@@ -4,12 +4,16 @@ import { useParams } from "react-router"
 import { useEffect } from "react/cjs/react.development"
 import axios from "axios"
 import Content from "../Content/Content"
+import Loader from "../Loader/Loader"
 
 export default function Search() {
   const { query } = useParams()
   const [searchResults, setSearchResults] = useState([])
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
   const fetchSearch = async userQuery => {
+    setIsLoaded(false)
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/multi?api_key=${
@@ -21,6 +25,8 @@ export default function Search() {
       return searchResults
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoaded(true)
     }
   }
 
@@ -32,7 +38,10 @@ export default function Search() {
   return (
     <div className="search">
       <div className="container">
-        <Content movies={searchResults} isSearch />
+        {isLoaded 
+          ? <Content movies={searchResults} isSearch />
+          : <Loader />
+        }
       </div>
     </div>
   )

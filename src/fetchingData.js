@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import axios from "axios"
 
 export const fetchPopular = async () => {
@@ -18,7 +19,9 @@ export const fetchMovieInfo = async(id) => {
         console.log(data);
         const info = {
             title: data.title,
-            descr: data.overview
+            descr: data.overview,
+            image: data.poster_path,
+            background: data.backdrop_path
         }
         return info
     } catch (error) {

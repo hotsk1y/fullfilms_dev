@@ -1,4 +1,6 @@
 import React from "react"
+import { useEffect, useState } from "react/cjs/react.development"
+import Loader from "../Loader/Loader"
 import "./Hero.scss"
 
 export default function Hero({
@@ -12,8 +14,17 @@ export default function Hero({
     background: `linear-gradient(to bottom, rgba(0,0,0, .1), rgba(0,0,0, 1)), url(${heroImg}) no-repeat top 10% center`,
   }
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    heroImg && setIsLoaded(true)
+    console.log(heroImg)
+  }, [heroImg])
+
   return (
-    <div className="hero" style={styles}>
+    <>
+    {isLoaded && <>
+      <div className="hero" style={styles}>
       <div className="wrapper">
         <div className="hero__info">
           <div className="hero__title">{heroTitle}</div>
@@ -32,5 +43,7 @@ export default function Hero({
         </div>
       </div>
     </div>
+    </>}
+    </>
   )
 }

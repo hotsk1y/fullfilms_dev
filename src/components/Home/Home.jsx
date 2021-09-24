@@ -3,18 +3,22 @@ import "./Home.scss"
 import Hero from "../Hero/Hero"
 import Content from "../Content/Content"
 import axios from "axios"
+import Loader from "../Loader/Loader"
 
 export default function Home({ movies, isSearch }) {
   const [heroTitle, setHeroTitle] = useState(null)
   const [heroDescr, setHeroDescr] = useState(null)
   const [heroImg, setHeroImg] = useState(null)
-  const [heroTrailer, setHeroTrailer] = useState(null)
   const [activeTrailer, setActiveTrailer] = useState(true)
+  const [heroTrailer, setHeroTrailer] = useState(null)
 
   const [heroVideoLinkRu, setHeroVideoLinkRu] = useState(null)
   const [heroVideoLinkEn, setHeroVideoLinkEn] = useState(null)
 
+  const [isLoaded, setIsLoaded] = useState(false)
+
   const selectHero = useCallback(() => {
+    setIsLoaded(false)
     for (let i = 0; i < movies.length; i++) {
       if (movies[i].overview.length < 320 && movies[i].overview.length !== 0) {
         setHeroImg(
@@ -31,9 +35,11 @@ export default function Home({ movies, isSearch }) {
         break
       }
     }
+    setIsLoaded(true)
   }, [movies])
 
   const getTrailer = useCallback(() => {
+    setIsLoaded(false)
     if (heroVideoLinkRu || heroVideoLinkEn) {
       axios
         .get(heroVideoLinkRu)
@@ -51,6 +57,7 @@ export default function Home({ movies, isSearch }) {
             })
         })
     }
+    setIsLoaded(true)
   }, [heroVideoLinkRu, heroVideoLinkEn])
 
   useEffect(() => {
@@ -59,17 +66,29 @@ export default function Home({ movies, isSearch }) {
   }, [selectHero, getTrailer])
 
   return (
-    <div className="home">
-      {!isSearch && movies.length > 0 && (
-        <Hero
-          heroTitle={heroTitle}
-          heroDescr={heroDescr}
-          heroImg={heroImg}
-          heroTrailer={heroTrailer}
-          activeTrailer={activeTrailer}
-        />
+    <>
+      {isLoaded ? (
+        <>
+          <div className="home">
+            {!isSearch && movies.length > 0 && (
+              <Hero
+                heroTitle={heroTitle}
+                heroDescr={heroDescr}
+                heroImg={heroImg}
+                activeTrailer={activeTrailer}
+                heroTrailer={heroTrailer}
+              />
+            )}
+            <Content
+              movies={movies}
+              isSearch={isSearch}
+              heroTrailer={heroTrailer}
+            />
+          </div>
+        </>
+      ) : (
+        <Loader />
       )}
-      <Content movies={movies} isSearch={isSearch} />
-    </div>
+    </>
   )
 }

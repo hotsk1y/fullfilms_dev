@@ -2,12 +2,11 @@
 import "./App.scss"
 import "./styles/global.scss"
 import Header from "./components/Header/Header"
-import Stack from "@mui/material/Stack"
-import CircularProgress from "@mui/material/CircularProgress"
 import Movie from "./components/Movie/Movie"
 import NotFound from "./components/NotFound/NotFound"
 import Home from "./components/Home/Home"
 import Search from "./components/Search/Search"
+import Loader from "./components/Loader/Loader"
 
 import { useEffect, useState } from "react"
 
@@ -74,11 +73,7 @@ const App = () => {
             </Switch>
           </>
         ) : (
-          <div>
-            <Stack sx={{ color: "grey.500" }} spacing={2} direction="row">
-              <CircularProgress color="inherit" />
-            </Stack>
-          </div>
+          <Loader />
         )}
       </div>
     </BrowserRouter>
