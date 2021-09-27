@@ -1,9 +1,9 @@
 import axios from "axios"
 
-export const fetchPopular = async () => {
+export const fetchPopular = async (page) => {
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
+      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru&page=${page}`,
     )
     const films = response.data.results
     return films
@@ -15,8 +15,9 @@ export const fetchPopular = async () => {
 export const fetchMovieInfo = async(id) => {
     try {
         const {data} = await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=ru`)
-        console.log(data);
+        // console.log(data)
         const info = {
+            id: data.id,
             title: data.title,
             descr: data.overview,
             image: data.poster_path,
@@ -24,15 +25,16 @@ export const fetchMovieInfo = async(id) => {
         }
         return info
     } catch (error) {
-        console.log(error)
+        console.log('movie info error')
     }
 }
 
 export const fetchMovieCredits = async(id) => {
     try {
         const {data} = await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=ru`)
-        console.log(data);
+        // console.log(data)
+        return data
     } catch (error) {
-        console.log(error)
+        console.log('movie credit error')
     }
 }

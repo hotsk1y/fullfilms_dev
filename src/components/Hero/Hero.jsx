@@ -1,6 +1,5 @@
 import React from "react"
 import { useEffect, useState } from "react/cjs/react.development"
-import Loader from "../Loader/Loader"
 import "./Hero.scss"
 
 export default function Hero({
@@ -18,7 +17,7 @@ export default function Hero({
 
   useEffect(() => {
     heroImg && setIsLoaded(true)
-    console.log(heroImg)
+    // console.log(heroImg)
   }, [heroImg])
 
   return (

@@ -5,16 +5,20 @@ import { useEffect, useState } from "react/cjs/react.development"
 import { fetchMovieInfo, fetchMovieCredits } from "../../fetchingData"
 import Loader from "../Loader/Loader"
 import MovieBanner from "./MovieBanner/MovieBanner"
+import NotFoundPage from "../NotFoundPage/NotFoundPage"
 
 export default function Movie() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   let { movieId } = useParams()
-  console.log(movieId)
 
   const [info, setInfo] = useState({})
   const [image, setImage] = useState(null)
-  const [background, setBackground] = useState(null)  
+  const [background, setBackground] = useState(null)
+
+  const [creditsInfo, setCreditsInfo] = useState([])
+  const [actors, setActors] = useState([])
 
   useEffect(() => {
     setIsLoaded(false)
@@ -22,30 +26,42 @@ export default function Movie() {
       .then(res => {
         setInfo(res)
         setImage(res.image)
-        setBackground(`https://image.tmdb.org/t/p/w1280/${res.background}`)
+        setBackground(res.background)
+        setIsLoaded(true)
       })
-      .then(setIsLoaded(true))
       .catch(e => {
-        // console.log(e)
-        // setIsLoaded(true)
+        console.log('not found')
+        setIsError(true)
+        setIsLoaded(true)
       })
     fetchMovieCredits(movieId)
+      .then(res => setCreditsInfo(res))
+      .catch( e => {
+        console.log('credits error')
+        setIsError(true)
+        setIsLoaded(true)
+      })
   }, [movieId])
 
-  useEffect(() => {
-    // console.log(info)
-  }, [info])
+  console.log(creditsInfo);
 
   return (
     <>
-      {isLoaded ? (
+      {isLoaded && !isError ? (
         <>
           <div className="movie">
-            <MovieBanner image={image} background={background} info={info} />
+            <MovieBanner image={image} background={background} info={info} isError={isError} isLoaded={isLoaded} />
+            <div className="movie_credits">
+              <div className="actors">
+                {creditsInfo.length !== 0 && creditsInfo.cast.map(actor => {
+                  return <div>{actor.name}</div>
+                })}
+              </div>
+            </div>
           </div>
         </>
       ) : (
-        <Loader />
+        isLoaded && isError ? <NotFoundPage /> : <Loader /> 
       )}
     </>
   )

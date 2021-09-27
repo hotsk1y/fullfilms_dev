@@ -17,15 +17,23 @@ import { fetchPopular } from "./fetchingData"
 
 const App = () => {
   const [movies, setMovies] = useState([])
+  const [trailerMovies, setTrailerMovies] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [IsError, setIsError] = useState(false)
   const [isSearch, setIsSearch] = useState(false)
 
+  const [page, setPage] = useState(1)
+
   useEffect(() => {
-    fetchPopular()
+    fetchPopular(page)
       .then(res => setMovies(res))
       .catch()
       .finally(setIsLoaded(true))
+  }, [page])
+
+  useEffect(() => {
+    fetchPopular(1)
+      .then(res => setTrailerMovies(res))
   }, [])
 
   const [query, setQuery] = useState("")
@@ -41,15 +49,20 @@ const App = () => {
               setMovies={setMovies}
               setIsSearch={setIsSearch}
               setIsLoaded={setIsLoaded}
+              page={page}
+              setPage={setPage}
             />
 
             <Switch>
               <Route exact path="/">
                 <Home
                   movies={movies}
+                  trailerMovies={trailerMovies}
                   isSearch={isSearch}
                   setQuery={setQuery}
                   setIsSearch={setIsSearch}
+                  page={page}
+                  setPage={setPage}
                 />
               </Route>
 
@@ -57,13 +70,15 @@ const App = () => {
                 <Movie />
               </Route>
 
-              <Route exact path="/search/:query">
+              <Route exact path="/search/:searchingPage/:query">
                 <Search
                   setQuery={setQuery}
                   setMovies={setMovies}
                   setIsSearch={setIsSearch}
                   setIsError={setIsError}
                   setIsLoaded={setIsLoaded}
+                  setPage={setPage}
+                  page={page}
                 />
               </Route>
 

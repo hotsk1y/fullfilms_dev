@@ -5,7 +5,7 @@ import Content from "../Content/Content"
 import axios from "axios"
 import Loader from "../Loader/Loader"
 
-export default function Home({ movies, isSearch }) {
+export default function Home({ trailerMovies }) {
   const [heroTitle, setHeroTitle] = useState(null)
   const [heroDescr, setHeroDescr] = useState(null)
   const [heroImg, setHeroImg] = useState(null)
@@ -19,24 +19,24 @@ export default function Home({ movies, isSearch }) {
 
   const selectHero = useCallback(() => {
     setIsLoaded(false)
-    for (let i = 0; i < movies.length; i++) {
-      if (movies[i].overview.length < 320 && movies[i].overview.length !== 0) {
+    for (let i = 0; i < trailerMovies.length; i++) {
+      if (trailerMovies[i].overview.length < 320 && trailerMovies[i].overview.length !== 0) {
         setHeroImg(
-          `https://image.tmdb.org/t/p/w1280/${movies[i].backdrop_path}`,
+          `https://image.tmdb.org/t/p/w1280/${trailerMovies[i].backdrop_path}`,
         )
-        setHeroTitle(movies[i].title)
-        setHeroDescr(movies[i].overview)
+        setHeroTitle(trailerMovies[i].title)
+        setHeroDescr(trailerMovies[i].overview)
         setHeroVideoLinkRu(
-          `https://api.themoviedb.org/3/movie/${movies[i].id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
+          `https://api.themoviedb.org/3/movie/${trailerMovies[i].id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
         )
         setHeroVideoLinkEn(
-          `https://api.themoviedb.org/3/movie/${movies[i].id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
+          `https://api.themoviedb.org/3/movie/${trailerMovies[i].id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
         )
         break
       }
     }
     setIsLoaded(true)
-  }, [movies])
+  }, [trailerMovies])
 
   const getTrailer = useCallback(() => {
     setIsLoaded(false)
@@ -70,7 +70,7 @@ export default function Home({ movies, isSearch }) {
       {isLoaded ? (
         <>
           <div className="home">
-            {!isSearch && movies.length > 0 && (
+            {trailerMovies.length > 0 && (
               <Hero
                 heroTitle={heroTitle}
                 heroDescr={heroDescr}
@@ -79,11 +79,12 @@ export default function Home({ movies, isSearch }) {
                 heroTrailer={heroTrailer}
               />
             )}
-            <Content
-              movies={movies}
-              isSearch={isSearch}
-              heroTrailer={heroTrailer}
-            />
+            <div className="container">
+              <div className="section__title">Сейчас смотрят:</div>
+              <Content
+                movies={trailerMovies}
+              />
+            </div>
           </div>
         </>
       ) : (

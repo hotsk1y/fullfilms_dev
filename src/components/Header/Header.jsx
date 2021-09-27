@@ -5,13 +5,14 @@ import { fetchPopular } from "../../fetchingData"
 
 import logo from '../Header/big-logo.png'
 
-export default function Header({ query, setQuery, setMovies, setIsLoaded, setIsSearch }) {
+export default function Header({ query, setQuery, setMovies, setIsLoaded, setIsSearch, page, setPage }) {
 
   const cleanData = () => {
     console.log(123)
     setQuery('')
+    setPage(1)
     setIsSearch(false)
-    fetchPopular()
+    fetchPopular(1)
       .then(res => setMovies(res))
       .catch()
       .finally(setIsLoaded(true))
@@ -21,8 +22,8 @@ export default function Header({ query, setQuery, setMovies, setIsLoaded, setIsS
 
   const handleKeyDown = useCallback((e) => {    
     if (e.keyCode === 13) {
-      console.log(query)
-      history.push(`/search/${query}`)
+      // console.log(query)
+      history.push(`/search/${page}/${query}`)
     }
   }, [query, history])
 
@@ -41,7 +42,7 @@ export default function Header({ query, setQuery, setMovies, setIsLoaded, setIsS
             value={query}
             onKeyDown={handleKeyDown}
           />
-          <Link to={query.trim().length > 0 && `/search/${query}`}><div className="search__btn">Поиск...</div></Link>
+          <Link to={query.trim().length > 0 && `/search/${page}/${query}`}><div className="search__btn">Поиск...</div></Link>
         </div>
       </div>
     </div>

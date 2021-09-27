@@ -1,0 +1,15 @@
+.cat {
+    width: 300px;
+    height: 300px;
+    img {
+        width: 100%;
+    }
+}
+
+.notFound {
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
