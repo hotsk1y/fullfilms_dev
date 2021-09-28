@@ -137,7 +137,7 @@ export default function Movie() {
                     {info.country.length > 0 ? (
                       info.country.map(c => {
                         return (
-                          <span key={c.id} className="many">
+                          <span key={c.name} className="many">
                             {" "}
                             {c.name}
                           </span>
@@ -151,7 +151,7 @@ export default function Movie() {
                     <span>Жанр:</span>
                     {info.genre.map(g => {
                       return (
-                        <span key={g.id} className="many">
+                        <span key={g.name} className="many">
                           {" "}
                           {g.name}
                         </span>
