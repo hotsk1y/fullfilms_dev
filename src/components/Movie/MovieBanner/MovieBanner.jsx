@@ -2,9 +2,9 @@ import React from "react"
 import { useState, useCallback, useEffect } from "react/cjs/react.development"
 import "./MovieBanner.scss"
 import axios from "axios"
+import { useHistory } from "react-router"
 
 const MovieBanner = ({ image, background, info }) => {
-
   const [activeTrailer, setActiveTrailer] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
   const [movieVideoLinkRu, setMovieVideoLinkRu] = useState(null)
@@ -55,30 +55,43 @@ const MovieBanner = ({ image, background, info }) => {
   }, [movieVideoLinkRu, movieVideoLinkEn])
 
   useEffect(() => {
-    setMovieVideoLinkRu(`https://api.themoviedb.org/3/movie/${info.id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=ru`)
-    setMovieVideoLinkEn(`https://api.themoviedb.org/3/movie/${info.id}/videos?api_key=${process.env.REACT_APP_API_KEY}`)
+    setMovieVideoLinkRu(
+      `https://api.themoviedb.org/3/movie/${info.id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
+    )
+    setMovieVideoLinkEn(
+      `https://api.themoviedb.org/3/movie/${info.id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
+    )
     getTrailer()
   }, [getTrailer])
+
+  const history = useHistory()
+
+  const handleBack = () => {
+    history.goBack()
+  }
 
   return (
     <>
       <div className="banner" style={styles.banner}>
         <div className="banner__content">
+          <div className="back" onClick={handleBack}><img src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png" alt="back" /> Назад</div>
+          <div className="banner__img-wrapper">            
           <div className="banner__img" style={styles.poster}></div>
+              {activeTrailer && (
+                <a
+                  className="trailer__btn"
+                  href={`https://www.youtube.com/watch?v=${movieTrailer}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="https://cdn-icons-png.flaticon.com/512/13/13021.png" alt="play" />
+                  Смотреть трейлер
+                </a>
+              )}         
+          </div>
           <div className="banner__info">
             <div className="movie__title">{info.title}</div>
             <div className="movie__descr">{info.descr}</div>
-            <div className="trailer__btn">
-            {activeTrailer && (
-              <a
-                href={`https://www.youtube.com/watch?v=${movieTrailer}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Смотреть трейлер
-              </a>
-            )}
-          </div>
           </div>
         </div>
       </div>
