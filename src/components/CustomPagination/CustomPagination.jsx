@@ -1,16 +1,30 @@
+/* eslint-disable no-lone-blocks */
 import React from "react"
 import Pagination from "@mui/material/Pagination"
 import { useHistory } from "react-router"
 
 import './CustomPagination.scss'
 
-const CustomPagination = ({ totalPages, setPage, activePage, query }) => {
+const CustomPagination = ({ totalPages, setPage, activePage, query, type }) => {
   const history = useHistory()
 
   const handlePageChange = page => {
     setPage(page)
     window.scroll(0, 0)
-    history.push(`/search/${page}/${query}`)
+    
+    switch (type) {
+      case 'search':
+        history.push(`/${type}/${page}/${query}`)
+        break;
+
+        case 'genre':
+          history.push(`/${type}/${query}/${page}`)
+          break;
+    
+      default:
+        history.push(`/${type}/${page}`)
+        break;
+    }
   }
 
   console.log(activePage)

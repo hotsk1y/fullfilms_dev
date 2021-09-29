@@ -2,7 +2,7 @@ import React from "react"
 import "./Content.scss"
 import MovieItem from "../MovieItem/MovieItem"
 
-export default function Popular({ movies }) {
+export default function Content({ movies }) {
 
   return (
     <div className="content">        

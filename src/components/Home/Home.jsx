@@ -4,6 +4,7 @@ import Hero from "../Hero/Hero"
 import Content from "../Content/Content"
 import axios from "axios"
 import Loader from "../Loader/Loader"
+import Sorting from "../Sorting/Sorting"
 
 export default function Home({ trailerMovies }) {
   const [heroTitle, setHeroTitle] = useState(null)
@@ -79,6 +80,7 @@ export default function Home({ trailerMovies }) {
                 heroTrailer={heroTrailer}
               />
             )}
+            <Sorting />
             <div className="container">
               <div className="section__title">Сейчас смотрят:</div>
               <Content

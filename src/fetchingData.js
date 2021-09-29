@@ -1,14 +1,15 @@
 import axios from "axios"
 
-export const fetchPopular = async page => {
+export const fetchPopular = async (page=1) => {
   try {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=ru&page=${page}`,
     )
-    const films = response.data.results
-    return films
+    // const films = response.data.results
+    return response.data
   } catch (error) {
     console.log(error)
+    throw new Error(error)
   }
 }
 
@@ -17,7 +18,7 @@ export const fetchMovieInfo = async id => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
     )
-    console.log(data)
+    // console.log(data)
     const info = {
       id: data.id,
       title: data.title,
@@ -33,6 +34,7 @@ export const fetchMovieInfo = async id => {
     return info
   } catch (error) {
     console.log("movie info error")
+    throw new Error(error)
   }
 }
 
@@ -45,17 +47,71 @@ export const fetchMovieCredits = async id => {
     return data
   } catch (error) {
     console.log("movie credit error")
+    throw new Error(error)
   }
 }
 
-export const fetchActor = async (id) => {
+export const fetchActorFilms = async id => {
   try {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}&language=ru`
+      `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
     )
-    console.log(data)
+    // console.log(data)
     return data
   } catch (error) {
     console.log("actor movies error")
+    throw new Error(error)
+  }
+}
+
+export const fetchActorInfo = async id => {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
+    )
+    // console.log(data)
+    return data
+  } catch (error) {
+    console.log("actor info error")
+    throw new Error(error)
+  }
+}
+
+export const fetchActors = async (query, page) => {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/search/person?api_key=${process.env.REACT_APP_API_KEY}&language=ru&query=${query}&page=${page}`,
+    )
+    // console.log(data)
+    return data
+  } catch (error) {
+    console.log("actor info error")
+    throw new Error(error)
+  }
+}
+
+export const fetchGenres = async () => {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
+    )
+    // console.log(data)
+    return data
+  } catch (error) {
+    console.log("genres error")
+    throw new Error(error)
+  }
+}
+
+export const fetchMoviesWithGenre = async (genre, page = 1) => {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=ru&sort_by=popularity.desc&page=${page}&with_genres=${genre}`,
+    )
+    // console.log(data)
+    return data
+  } catch (error) {
+    console.log("genres error")
+    throw new Error(error)
   }
 }

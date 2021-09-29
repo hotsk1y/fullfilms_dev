@@ -7,20 +7,17 @@ import { fetchMovieInfo, fetchMovieCredits } from "../../fetchingData"
 import Loader from "../Loader/Loader"
 import MovieBanner from "./MovieBanner/MovieBanner"
 import NotFoundPage from "../NotFoundPage/NotFoundPage"
-
-import { fetchActor } from "../../fetchingData"
+import ActorItem from "../ActorItem/ActorItem"
 
 export default function Movie() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
 
-  let { movieId } = useParams()
+  const { movieId } = useParams()
 
   const [info, setInfo] = useState({})
   const [image, setImage] = useState(null)
   const [background, setBackground] = useState(null)
-
-  const [creditsInfo, setCreditsInfo] = useState([])
 
   const [actors, setActors] = useState([])
   const [year, setYear] = useState(null)
@@ -95,7 +92,6 @@ export default function Movie() {
 
     fetchMovieCredits(movieId)
       .then(res => {
-        setCreditsInfo(res)
         setActors(res.cast)
         getMovieCredits(res.crew)
       })
@@ -105,13 +101,6 @@ export default function Movie() {
         setIsLoaded(true)
       })
   }, [movieId])
-
-  // console.log(actors)
-
-  const handleClick = actorQuery => {
-    console.log(actorQuery)
-    fetchActor(actorQuery)
-  }
 
   return (
     <>
@@ -148,7 +137,7 @@ export default function Movie() {
                     )}
                   </div>
                   <div className="credit__genre credit__item">
-                    <span>Жанр:</span>
+                    <span>Жанр: </span>
                     {info.genre.map(g => {
                       return (
                         <span key={g.name} className="many">
@@ -198,27 +187,7 @@ export default function Movie() {
                 <div className="actors__title">Актеры</div>
                 <div className="actors__wrapper">
                   {actors.map(a => {
-                    return (
-                      <div
-                        className="actor__item"
-                        onClick={() => handleClick(a.id)}
-                        key={a.id}
-                      >
-                        <div className="actor__info">
-                          <div className="actor__item-img">
-                            <img
-                              src={
-                                a.profile_path
-                                  ? `https://image.tmdb.org/t/p/w780/${a.profile_path}`
-                                  : "https://www.executiveflight.nl/wp-content/uploads/default-person.jpg"
-                              }
-                              alt=""
-                            />
-                          </div>
-                          <div className="actor__item-name">{a.name}</div>
-                        </div>
-                      </div>
-                    )
+                    return <ActorItem key={a.id} actor={a} />
                   })}
                 </div>
               </div>

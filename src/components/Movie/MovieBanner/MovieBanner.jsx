@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react"
 import { useState, useCallback, useEffect } from "react/cjs/react.development"
 import "./MovieBanner.scss"
@@ -72,7 +73,7 @@ const MovieBanner = ({ image, background, info }) => {
 
   return (
     <>
-      <div className="banner" style={styles.banner}>
+      {isLoaded && <div className="banner" style={styles.banner}>
         <div className="banner__content">
           <div className="back" onClick={handleBack}><img src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png" alt="back" /> Назад</div>
           <div className="banner__img-wrapper">            
@@ -94,7 +95,7 @@ const MovieBanner = ({ image, background, info }) => {
             <div className="movie__descr">{info.descr}</div>
           </div>
         </div>
-      </div>
+      </div>}
     </>
   )
 }

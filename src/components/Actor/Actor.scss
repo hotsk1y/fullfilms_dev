@@ -1,0 +1,65 @@
+.actor {
+    position: relative;
+    .back{
+        top: -85px;
+        left: 25px;
+        img{
+            filter: invert(0);
+        }
+    }
+    
+    .actor__card{
+        display: flex;
+        background-color: #BEDBBB;
+        color: #000;
+        width: 500px;
+        height: 200px;
+        margin: 0 auto;
+        margin-top: 100px;
+        margin-bottom: 100px;
+        overflow: hidden;
+        border-radius: 15px;
+
+        .actor__img{
+            height: 100%;
+            width: 130px;
+            img{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .actor__info{
+            text-align: left;
+            font-size: 18px;
+            padding: 10px 10px 5px 15px;
+            .actor__info-name{
+                font-size: 24px;
+                font-weight: 700;
+                margin-bottom: 30px;
+            }
+            .actor__info-birthday{
+                margin-bottom: 10px;
+            }
+            .actor__info-place {
+                // margin-bottom: 15px;
+            }
+        }
+    }
+}
+
+.actor__movies{
+    background-color: #FBC687;
+    // padding: 50px 0;
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        .movie__item-wrapper{
+            margin-top: 50px;
+            .movie__item{
+                margin-bottom: 0;
+            }
+        }
+    }
+}

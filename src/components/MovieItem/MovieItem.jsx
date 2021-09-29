@@ -17,12 +17,12 @@ export default function MovieItem({ id, title, image }) {
 
   return (
     <div className="movie__item-wrapper">
-      <Link to={`/info/${id}`} onClick={handleClick}>
         <div className="movie__item">
+      <Link to={`/info/${id}`} onClick={handleClick} >
           <div className="movie__item-img" style={styles}></div>
           <div className="movie__item-title">{title}</div>
-        </div>
       </Link>
+        </div>
     </div>
   )
 }

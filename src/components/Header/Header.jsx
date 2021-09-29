@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback } from "react"
 import "./Header.scss"
 import { Link, useHistory } from "react-router-dom"
@@ -13,7 +14,7 @@ export default function Header({ query, setQuery, setMovies, setIsLoaded, setIsS
     setPage(1)
     setIsSearch(false)
     fetchPopular(1)
-      .then(res => setMovies(res))
+      .then(data => setMovies(data.results))
       .catch()
       .finally(setIsLoaded(true))
   }

@@ -57,6 +57,7 @@ export default function Search({ setPage, page }) {
               setPage={setPage}
               activePage={searchingPage}
               query={query}
+              type={`search`}
             />
           </>
         ) : (

@@ -3,10 +3,10 @@ import "./App.scss"
 import "./styles/global.scss"
 import Header from "./components/Header/Header"
 import Movie from "./components/Movie/Movie"
-import NotFound from "./components/NotFound/NotFound"
 import Home from "./components/Home/Home"
 import Search from "./components/Search/Search"
 import Loader from "./components/Loader/Loader"
+import Actor from "./components/Actor/Actor"
 
 import { useEffect, useState } from "react"
 
@@ -14,6 +14,9 @@ import { BrowserRouter, Route } from "react-router-dom"
 import { Switch } from "react-router-dom"
 
 import { fetchPopular } from "./fetchingData"
+import NotFoundPage from "./components/NotFoundPage/NotFoundPage"
+import Popular from "./components/Popular/Popular"
+import GenrePage from "./components/GenrePage/GenrePage"
 
 const App = () => {
   const [movies, setMovies] = useState([])
@@ -26,17 +29,19 @@ const App = () => {
 
   useEffect(() => {
     fetchPopular(page)
-      .then(res => setMovies(res))
+      .then(data => setMovies(data.results))
       .catch()
       .finally(setIsLoaded(true))
   }, [page])
 
   useEffect(() => {
     fetchPopular(1)
-      .then(res => setTrailerMovies(res))
+      .then(data => setTrailerMovies(data.results))
   }, [])
 
   const [query, setQuery] = useState("")
+
+  
 
   return (
     <BrowserRouter>
@@ -70,6 +75,22 @@ const App = () => {
                 <Movie />
               </Route>
 
+              <Route exact path="/actor/:actorId">
+                <Actor />
+              </Route>
+
+              {/* <Route exact path="/searchActor/:actorQuery">
+                <SearchActor />
+              </Route> */}
+
+              <Route exact path={`/popular/:popularPage`}>
+                <Popular />
+              </Route>
+
+              <Route exact path={`/genre/:genreId/:genrePage`}>
+                <GenrePage />
+              </Route>
+
               <Route exact path="/search/:searchingPage/:query">
                 <Search
                   setQuery={setQuery}
@@ -83,7 +104,7 @@ const App = () => {
               </Route>
 
               <Route exact path="/*">
-                <NotFound />
+                <NotFoundPage />
               </Route>
             </Switch>
           </>
