@@ -36,6 +36,8 @@ export default function Sorting({setPage, page}) {
 
   return (
     <div className="sorting">
+      <h2 className='sorting__title'>Поиск по жанрам</h2>
+      <div className="storting__wrapper">
       <Link to={`/popular/1`} className="sorting__btn">
         <div>популярные</div>
       </Link>
@@ -57,6 +59,7 @@ export default function Sorting({setPage, page}) {
           onKeyDown={handleKeyDown}
         />
       </div> */}
+      </div>
     </div>
   )
 }

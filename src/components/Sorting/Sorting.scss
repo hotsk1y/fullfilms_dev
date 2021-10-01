@@ -1,19 +1,39 @@
 .sorting {
-    background-color: #5D534A;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+    padding: 100px 0;
+
+    .sorting__title {
+        font-size: 36px;
+        margin: 0;
+        line-height: 60px;
+        color: #ed1543;
+        margin-bottom: 20px;
+    }
+
+    .storting__wrapper{
+        width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
 
     .sorting__btn{
         text-decoration: none;
         background-color: #fff;
         color: #000;
-        width: fit-content;
-        height: fit-content;
-        padding: 5px 15px;
-        border-radius: 15px;
+        padding: 10px 15px;
+        width: 200px;
+        height: 65px;
+        border: 1px solid #ccc;
         margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 500;
+        transition: border .1s ease;
+        &:hover {
+            border: 1px solid #ed1543;
+        }
     }
 }

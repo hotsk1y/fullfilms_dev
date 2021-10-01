@@ -48,6 +48,7 @@ export default function Popular() {
       {isLoaded && !isError ? (
         <div className="popular">
           <Sorting />
+          <div className="popular__wrapper">
           <div className="container">
             <div className="section__title">Популярные</div>
             <Content movies={movies} />
@@ -57,6 +58,7 @@ export default function Popular() {
               activePage={popularPage}
               type='popular'
             />
+          </div>
           </div>
         </div>
       ) : isLoaded && isError ? (

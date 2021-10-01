@@ -2,6 +2,7 @@
 import "./App.scss"
 import "./styles/global.scss"
 import Header from "./components/Header/Header"
+import Navbar from "./components/Navbar/Navbar"
 import Movie from "./components/Movie/Movie"
 import Home from "./components/Home/Home"
 import Search from "./components/Search/Search"
@@ -13,7 +14,7 @@ import { useEffect, useState } from "react"
 import { BrowserRouter, Route } from "react-router-dom"
 import { Switch } from "react-router-dom"
 
-import { fetchPopular } from "./fetchingData"
+import { fetchNowPlaying, fetchPopular } from "./fetchingData"
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage"
 import Popular from "./components/Popular/Popular"
 import GenrePage from "./components/GenrePage/GenrePage"
@@ -35,7 +36,7 @@ const App = () => {
   }, [page])
 
   useEffect(() => {
-    fetchPopular(1)
+    fetchNowPlaying()
       .then(data => setTrailerMovies(data.results))
   }, [])
 
@@ -48,7 +49,7 @@ const App = () => {
       <div className="App">
         {isLoaded && !IsError ? (
           <>
-            <Header
+            {/* <Header
               query={query}
               setQuery={setQuery}
               setMovies={setMovies}
@@ -56,7 +57,8 @@ const App = () => {
               setIsLoaded={setIsLoaded}
               page={page}
               setPage={setPage}
-            />
+            /> */}
+            <Navbar />
 
             <Switch>
               <Route exact path="/">

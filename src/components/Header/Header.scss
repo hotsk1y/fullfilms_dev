@@ -48,11 +48,12 @@
         }
       }
       .search__btn {
-        background: linear-gradient(
-          to right,
-          rgba(#ffa299, 1) 0%,
-          rgba(#eb6383, 1) 100%
-        );
+        // background: linear-gradient(
+        //   to right,
+        //   rgba(#ffa299, 1) 0%,
+        //   rgba(#eb6383, 1) 100%
+        // );
+        background-color: #ea2845;
         height: 100%;
         padding: 10px 25px;
         border: none;

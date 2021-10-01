@@ -29,7 +29,7 @@ const MovieBanner = ({ image, background, info }) => {
         background
           ? `https://image.tmdb.org/t/p/w1280/${background}`
           : `${defaultBg}`
-      }) no-repeat top 10% center`,
+      })`,
     },
   }
 

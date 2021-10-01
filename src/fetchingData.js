@@ -115,3 +115,16 @@ export const fetchMoviesWithGenre = async (genre, page = 1) => {
     throw new Error(error)
   }
 }
+
+export const fetchNowPlaying = async () => {
+  try {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=d3b9f599977e9ade8cffaa24eefacbc9&language=ru&page=1`,
+    )
+    // console.log(data)
+    return data
+  } catch (error) {
+    console.log("now playing error")
+    throw new Error(error)
+  }
+}

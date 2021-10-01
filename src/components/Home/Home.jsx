@@ -81,11 +81,13 @@ export default function Home({ trailerMovies }) {
               />
             )}
             <Sorting />
+            <div className="home__popular">
             <div className="container">
-              <div className="section__title">Сейчас смотрят:</div>
+              <div className="section__title">Сейчас в кинотеатрах</div>
               <Content
                 movies={trailerMovies}
               />
+            </div>
             </div>
           </div>
         </>
