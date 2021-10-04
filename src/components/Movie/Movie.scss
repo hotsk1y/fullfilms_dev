@@ -24,49 +24,12 @@
     margin-bottom: 15px;
 }
 
-.credit__country{
-    .many{
-        font-weight: 400;
-        padding: 0;
-        margin: 0;
-    }
-    .many:not(:first-child) + .many:not(:first-child)::before {
-        content: ",";
-    }
-}
-
-.credit__genre{
-    .many{
-        font-weight: 400;
-        padding: 0;
-        margin: 0;
-    }
-    .many:not(:first-child) + .many:not(:first-child)::before {
-        content: ",";
-    }
-}
-
-.credit__screenplay{
-    span:not(:first-child)::before {
-        content: ",";
-    }
-}
-
-.credit__producer{
-    span:not(:first-child)::before {
-        content: ",";
-    }
-}
-
-.credit__sound{
-    span:not(:first-child)::before {
-        content: ",";
-    }
-}
-
-.credit__editor{
-    span:not(:first-child)::before {
-        content: ",";
+span.many{
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+    &:not(:first-child) + &:not(:first-child)::before {
+        content: ", ";
     }
 }
 

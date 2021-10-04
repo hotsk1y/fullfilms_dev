@@ -23,13 +23,13 @@ export default function Movie() {
   const [year, setYear] = useState(null)
   const [premiere, setPremiere] = useState(null)
 
-  const [screenplay, setScreenplay] = useState("?")
-  const [director, setDirector] = useState("?")
-  const [producer, setProducer] = useState("?")
-  const [camera, setCamera] = useState("?")
-  const [sound, setSound] = useState("?")
-  const [art, setArt] = useState("?")
-  const [editor, setEditor] = useState("?")
+  const [screenplay, setScreenplay] = useState([])
+  const [director, setDirector] = useState([])
+  const [producer, setProducer] = useState([])
+  const [camera, setCamera] = useState([])
+  const [sound, setSound] = useState([])
+  const [art, setArt] = useState([])
+  const [editor, setEditor] = useState([])
 
   const getMovieCredits = data => {
     data.map(i => {
@@ -37,30 +37,30 @@ export default function Movie() {
         setDirector(i.name)
       }
       if (i.job === "Screenplay" || i.job === "Writer") {
-        setScreenplay(i.name)
+        setScreenplay(prevState => [...prevState, i.name])
       }
       if (
-        i.job === "Executive Producer" ||
-        i.job === "Line Producer" ||
+        // i.job === "Executive Producer" ||
+        // i.job === "Line Producer" ||
         i.job === "Producer"
       ) {
-        setProducer(i.name)
+        setProducer(prevState => [...prevState, i.name])
       }
       if (i.job === "Director of Photography" || i.job === "Cinematography") {
-        setCamera(i.name)
+        setCamera(prevState => [...prevState, i.name])
       }
       if (i.job === "Original Music Composer" || i.job === "Music") {
-        setSound(i.name)
+        setSound(prevState => [...prevState, i.name])
       }
       if (
-        i.job === "Supervising Art Director" ||
-        i.job === "Art Direction" ||
-        i.known_for_department === "Art"
+        // i.job === "Supervising Art Director" ||
+        i.job === "Art Direction"
+        // i.known_for_department === "Art"
       ) {
-        setArt(i.name)
+        setArt(prevState => [...prevState, i.name])
       }
       if (i.job === "Editor") {
-        setEditor(i.name)
+        setEditor(prevState => [...prevState, i.name])
       }
       return null
     })
@@ -101,6 +101,8 @@ export default function Movie() {
         setIsLoaded(true)
       })
   }, [movieId])
+
+  console.log(screenplay);
 
   return (
     <>
@@ -155,22 +157,22 @@ export default function Movie() {
                     <span>Режиссер:</span> {director}
                   </div>
                   <div className="credit__screenplay credit__item">
-                    <span>Сценарий:</span> {screenplay}
+                    <span>Сценарий:</span> {screenplay.length > 0 ? screenplay.map(i => <span className="many">{i}</span>) : '?'}
                   </div>
                   <div className="credit__producer credit__item">
-                    <span>Продюсер:</span> {producer}
+                    <span>Продюсер:</span> {producer.length > 0 ? producer.map(i => <span className="many">{i}</span>) : '?'}
                   </div>
                   <div className="credit__camera credit__item">
-                    <span>Оператор:</span> {camera}
+                    <span>Оператор:</span> {camera.length > 0 ? camera.map(i => <span className="many">{i}</span>) : '?'}
                   </div>
                   <div className="credit__sound credit__item">
-                    <span>Композитор:</span> {sound}
+                    <span>Композитор:</span> {sound.length > 0 ? sound.map(i => <span className="many">{i}</span>) : '?'}
                   </div>
                   <div className="credit__art credit__item">
-                    <span>Художник:</span> {art}
+                    <span>Художник:</span> {art.length > 0 ? art.map(i => <span className="many">{i}</span>) : '?'}
                   </div>
                   <div className="credit__editor credit__item">
-                    <span>Монтаж:</span> {editor}
+                    <span>Монтаж:</span> {editor ? editor.map(i => <span className="many">{i}</span>) : '?'}
                   </div>
                   <div className="credit__premiere credit__item">
                     <span>Премьера в мире:</span> {premiere}

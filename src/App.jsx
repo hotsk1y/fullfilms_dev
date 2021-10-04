@@ -36,13 +36,10 @@ const App = () => {
   }, [page])
 
   useEffect(() => {
-    fetchNowPlaying()
-      .then(data => setTrailerMovies(data.results))
+    fetchNowPlaying().then(data => setTrailerMovies(data.results))
   }, [])
 
   const [query, setQuery] = useState("")
-
-  
 
   return (
     <BrowserRouter>
@@ -58,18 +55,23 @@ const App = () => {
               page={page}
               setPage={setPage}
             /> */}
-            <Navbar />
+            <Navbar
+              query={query}
+              setQuery={setQuery}
+              setMovies={setMovies}
+              setIsSearch={setIsSearch}
+              setIsLoaded={setIsLoaded}
+              page={page}
+              setPage={setPage}
+            />
 
             <Switch>
               <Route exact path="/">
                 <Home
-                  movies={movies}
                   trailerMovies={trailerMovies}
-                  isSearch={isSearch}
-                  setQuery={setQuery}
-                  setIsSearch={setIsSearch}
                   page={page}
-                  setPage={setPage}
+                  query={query}
+                  setQuery={setQuery}
                 />
               </Route>
 

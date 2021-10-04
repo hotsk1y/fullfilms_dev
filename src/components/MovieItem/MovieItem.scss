@@ -8,27 +8,36 @@
     cursor: pointer;
     position: relative;
     margin-bottom: 50px;
+    transition: all .3s ease;
+    background: rgb(190, 190, 190);
+    overflow: hidden;
+
+    &:hover{
+        transform: scale(105%);
+    }
 
     .movie__item-img{
         background-size: cover !important;
-        width: 225px;
-        height: 335px;
+        width: 215px;
+        height: 322px;
         transform: scale(100%);
+        margin-left: 5px;
+        margin-top: 5px;
     }
 
     .movie__item-title{
         // color: #fff;
         // background: #000;
-        color: #111;
-        background: #ccc;
+        color: #111;        
         // background: #1b1b1b;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0 10px;
         transition: opacity .3s ease-out;
-        height: calc(100% - 335px);
+        // height: calc(100% - 335px);
         font-size: 14px;
         font-weight: 500;
+        margin-top: 5px;
     }
 }

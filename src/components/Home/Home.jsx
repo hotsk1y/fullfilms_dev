@@ -5,8 +5,9 @@ import Content from "../Content/Content"
 import axios from "axios"
 import Loader from "../Loader/Loader"
 import Sorting from "../Sorting/Sorting"
+import SearchInput from "../SearchInput/SearchInput"
 
-export default function Home({ trailerMovies }) {
+export default function Home({ trailerMovies, page, query, setQuery }) {
   const [heroTitle, setHeroTitle] = useState(null)
   const [heroDescr, setHeroDescr] = useState(null)
   const [heroImg, setHeroImg] = useState(null)
@@ -21,7 +22,10 @@ export default function Home({ trailerMovies }) {
   const selectHero = useCallback(() => {
     setIsLoaded(false)
     for (let i = 0; i < trailerMovies.length; i++) {
-      if (trailerMovies[i].overview.length < 320 && trailerMovies[i].overview.length !== 0) {
+      if (
+        trailerMovies[i].overview.length < 320 &&
+        trailerMovies[i].overview.length !== 0
+      ) {
         setHeroImg(
           `https://image.tmdb.org/t/p/w1280/${trailerMovies[i].backdrop_path}`,
         )
@@ -81,13 +85,15 @@ export default function Home({ trailerMovies }) {
               />
             )}
             <Sorting />
-            <div className="home__popular">
-            <div className="container">
-              <div className="section__title">Сейчас в кинотеатрах</div>
-              <Content
-                movies={trailerMovies}
-              />
+            <div className="search__wrapper">
+              <div className="section__title">Поиск фильма по названию</div>
+              <SearchInput page={page} query={query} setQuery={setQuery} />
             </div>
+            <div className="home__popular">
+              <div className="container">
+                <div className="section__title">Сейчас в кинотеатрах</div>
+                <Content movies={trailerMovies} />
+              </div>
             </div>
           </div>
         </>
