@@ -9,14 +9,21 @@ import { fetchPopular } from "../../fetchingData"
 import Content from "../Content/Content"
 import CustomPagination from "../CustomPagination/CustomPagination"
 import Sorting from "../Sorting/Sorting"
+import { useDispatch, useSelector } from "react-redux"
+import { setMoviesAction, setIsActiveAction } from "../../store/reducers/moviesReducer"
+import BackButton from "../BackButton/BackButton"
+import GenresHeader from "../GenresHeader/GenresHeader"
 
 export default function Popular() {
+
+  const dispatch = useDispatch()
   const [isLoaded, setIsLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
 
   const { popularPage } = useParams()
-
-  const [movies, setMovies] = useState([])
+  
+  
+  const {movies, isActive} = useSelector(state => state.movies)
   const [page, setPage] = useState(popularPage)
   const [numberOfPages, setNumberOfPages] = useState(10)  
 
@@ -25,12 +32,21 @@ export default function Popular() {
     history.goBack()
   }
 
+  const handleOpen = () => {
+    dispatch(setIsActiveAction(true))
+    document.body.style.overflow = "hidden"
+  }
+  const handleClose = () => {
+    dispatch(setIsActiveAction(false))
+    document.body.style.overflow = "auto"
+  }
+
   useEffect(() => {
     setIsLoaded(false)
     fetchPopular(page)
       .then(data => {
         console.log(data)
-        setMovies(data.results)
+        dispatch(setMoviesAction(data.results))
         setNumberOfPages(data.total_pages)
         setIsLoaded(true)
       })
@@ -43,24 +59,28 @@ export default function Popular() {
 
   console.log(movies)
 
+  useEffect(() => {
+    document.body.style.overflowX = "hidden"
+  }, [isActive])
+
   return (
     <>
       {isLoaded && !isError ? (
+        <>
+        <GenresHeader />
         <div className="popular">
-          <Sorting />
           <div className="popular__wrapper">
           <div className="container">
             <div className="section__title">Популярные</div>
             <Content movies={movies} />
             <CustomPagination
-              totalPages={numberOfPages}
-              setPage={setPage}
               activePage={popularPage}
               type='popular'
             />
           </div>
           </div>
         </div>
+        </>
       ) : isLoaded && isError ? (
         <NotFoundPage />
       ) : (

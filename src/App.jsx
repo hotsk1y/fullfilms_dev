@@ -1,50 +1,43 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./App.scss"
 import "./styles/global.scss"
-import Header from "./components/Header/Header"
+// import Header from "./components/Header/Header"
 import Navbar from "./components/Navbar/Navbar"
 import Movie from "./components/Movie/Movie"
 import Home from "./components/Home/Home"
-import Search from "./components/Search/Search"
+import SearchPage from "./components/SearchPage/SearchPage"
 import Loader from "./components/Loader/Loader"
 import Actor from "./components/Actor/Actor"
+import {useDispatch, useSelector} from 'react-redux'
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 import { BrowserRouter, Route } from "react-router-dom"
 import { Switch } from "react-router-dom"
 
-import { fetchNowPlaying, fetchPopular } from "./fetchingData"
+import { fetchNowPlaying } from "./fetchingData"
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage"
 import Popular from "./components/Popular/Popular"
 import GenrePage from "./components/GenrePage/GenrePage"
 
+import { setIsLoadedAction, setTrailerMoviesAction } from "./store/reducers/moviesReducer"
+
 const App = () => {
-  const [movies, setMovies] = useState([])
-  const [trailerMovies, setTrailerMovies] = useState([])
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [IsError, setIsError] = useState(false)
-  const [isSearch, setIsSearch] = useState(false)
-
-  const [page, setPage] = useState(1)
+  const dispatch = useDispatch()
+  const {isLoaded, isError} = useSelector(state => state.movies)
 
   useEffect(() => {
-    fetchPopular(page)
-      .then(data => setMovies(data.results))
-      .catch()
-      .finally(setIsLoaded(true))
-  }, [page])
-
-  useEffect(() => {
-    fetchNowPlaying().then(data => setTrailerMovies(data.results))
+    fetchNowPlaying()
+      .then(data => {
+        dispatch(setTrailerMoviesAction(data.results))
+        dispatch(setIsLoadedAction(true))
+      })
   }, [])
-
-  const [query, setQuery] = useState("")
 
   return (
     <BrowserRouter>
       <div className="App">
-        {isLoaded && !IsError ? (
+        {isLoaded && !isError ? (
           <>
             {/* <Header
               query={query}
@@ -55,24 +48,9 @@ const App = () => {
               page={page}
               setPage={setPage}
             /> */}
-            <Navbar
-              query={query}
-              setQuery={setQuery}
-              setMovies={setMovies}
-              setIsSearch={setIsSearch}
-              setIsLoaded={setIsLoaded}
-              page={page}
-              setPage={setPage}
-            />
-
             <Switch>
               <Route exact path="/">
-                <Home
-                  trailerMovies={trailerMovies}
-                  page={page}
-                  query={query}
-                  setQuery={setQuery}
-                />
+                <Home />
               </Route>
 
               <Route exact path="/info/:movieId">
@@ -96,15 +74,7 @@ const App = () => {
               </Route>
 
               <Route exact path="/search/:searchingPage/:query">
-                <Search
-                  setQuery={setQuery}
-                  setMovies={setMovies}
-                  setIsSearch={setIsSearch}
-                  setIsError={setIsError}
-                  setIsLoaded={setIsLoaded}
-                  setPage={setPage}
-                  page={page}
-                />
+                <SearchPage />
               </Route>
 
               <Route exact path="/*">

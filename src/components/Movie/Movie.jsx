@@ -8,59 +8,74 @@ import Loader from "../Loader/Loader"
 import MovieBanner from "./MovieBanner/MovieBanner"
 import NotFoundPage from "../NotFoundPage/NotFoundPage"
 import ActorItem from "../ActorItem/ActorItem"
+import { useDispatch, useSelector } from "react-redux"
+
+import { 
+  setActorsAction, 
+  setArtAction, 
+  setBackgroundAction, 
+  setCameraAction, 
+  setDirectorAction, 
+  setEditorAction, 
+  setImageAction, 
+  setInfoAction, 
+  setPremiereAction, 
+  setProducerAction, 
+  setScreenplayAction, 
+  setSoundAction, 
+  setYearAction,
+ } from "../../store/reducers/moviePageReducer"
+import Navbar from "../Navbar/Navbar"
 
 export default function Movie() {
+  const dispatch = useDispatch()
   const [isLoaded, setIsLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
 
   const { movieId } = useParams()
 
-  const [info, setInfo] = useState({})
-  const [image, setImage] = useState(null)
-  const [background, setBackground] = useState(null)
-
-  const [actors, setActors] = useState([])
-  const [year, setYear] = useState(null)
-  const [premiere, setPremiere] = useState(null)
-
-  const [screenplay, setScreenplay] = useState([])
-  const [director, setDirector] = useState([])
-  const [producer, setProducer] = useState([])
-  const [camera, setCamera] = useState([])
-  const [sound, setSound] = useState([])
-  const [art, setArt] = useState([])
-  const [editor, setEditor] = useState([])
+  const {
+    info, 
+    image, 
+    background,
+    actors,
+    year,
+    premiere,
+    screenplay,
+    director,
+    producer,
+    camera,
+    sound,
+    art,
+    editor
+  } = useSelector(state => state.moviePage)
 
   const getMovieCredits = data => {
     data.map(i => {
       if (i.job === "Director") {
-        setDirector(i.name)
+        dispatch(setDirectorAction(i.name))
       }
       if (i.job === "Screenplay" || i.job === "Writer") {
-        setScreenplay(prevState => [...prevState, i.name])
+        dispatch(setScreenplayAction(i.name))
       }
       if (
-        // i.job === "Executive Producer" ||
-        // i.job === "Line Producer" ||
         i.job === "Producer"
       ) {
-        setProducer(prevState => [...prevState, i.name])
+        dispatch(setProducerAction(i.name))
       }
       if (i.job === "Director of Photography" || i.job === "Cinematography") {
-        setCamera(prevState => [...prevState, i.name])
+        dispatch(setCameraAction(i.name))
       }
       if (i.job === "Original Music Composer" || i.job === "Music") {
-        setSound(prevState => [...prevState, i.name])
+        dispatch(setSoundAction(i.name))
       }
       if (
-        // i.job === "Supervising Art Director" ||
         i.job === "Art Direction"
-        // i.known_for_department === "Art"
       ) {
-        setArt(prevState => [...prevState, i.name])
+        dispatch(setArtAction(i.name))
       }
       if (i.job === "Editor") {
-        setEditor(prevState => [...prevState, i.name])
+        dispatch(setEditorAction(i.name))
       }
       return null
     })
@@ -70,7 +85,7 @@ export default function Movie() {
     setIsLoaded(false)
     fetchMovieInfo(movieId)
       .then(res => {
-        setInfo(res)
+        dispatch(setInfoAction(res))
         const realiseDate = new Date(res.year)
         const getYear = realiseDate.getFullYear()
         const premiereDate = realiseDate.toLocaleString("ru", {
@@ -78,10 +93,10 @@ export default function Movie() {
           month: "long",
           day: "numeric",
         })
-        setYear(getYear)
-        setPremiere(premiereDate)
-        setImage(res.image)
-        setBackground(res.background)
+        dispatch(setYearAction(getYear))
+        dispatch(setPremiereAction(premiereDate))
+        dispatch(setImageAction(res.image))
+        dispatch(setBackgroundAction(res.background))
         setIsLoaded(true)
       })
       .catch(e => {
@@ -92,7 +107,7 @@ export default function Movie() {
 
     fetchMovieCredits(movieId)
       .then(res => {
-        setActors(res.cast)
+        dispatch(setActorsAction(res.cast))
         getMovieCredits(res.crew)
       })
       .catch(e => {
@@ -108,6 +123,7 @@ export default function Movie() {
     <>
       {isLoaded && !isError ? (
         <>
+          <Navbar />
           <div className="movie">
             <MovieBanner
               image={image}
@@ -184,16 +200,17 @@ export default function Movie() {
                 </div>
               )}
             </div>
-            <div className="actors">
-              <div className="container">
-                <div className="actors__title">Актеры</div>
-                <div className="actors__wrapper">
-                  {actors.map(a => {
-                    return <ActorItem key={a.id} actor={a} />
-                  })}
+            {actors.length > 0 && 
+              <div className="actors">
+                <div className="container">
+                  <div className="actors__title">Актеры</div>
+                  <div className="actors__wrapper">
+                    {actors.map(a => {
+                      return <ActorItem key={a.id} actor={a} />
+                    })}
+                  </div>
                 </div>
-              </div>
-            </div>
+              </div>}
           </div>
         </>
       ) : isLoaded && isError ? (

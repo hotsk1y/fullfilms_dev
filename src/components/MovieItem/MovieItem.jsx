@@ -4,10 +4,10 @@ import { Link } from "react-router-dom"
 
 export default function MovieItem({ id, title, image }) {
 
-  const handleClick = () => {
-    console.log(image)
-    console.log(title)
-  }
+  // const handleClick = () => {
+  //   console.log(image)
+  //   console.log(title)
+  // }
 
   const defaultBg = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoWcWg0E8pSjBNi0TtiZsqu8uD2PAr_K11DA&usqp=CAU'
 
@@ -18,7 +18,7 @@ export default function MovieItem({ id, title, image }) {
   return (
     <div className="movie__item-wrapper">
         <div className="movie__item">
-      <Link to={`/info/${id}`} onClick={handleClick} >
+      <Link to={`/info/${id}`} >
           <div className="movie__item-img" style={styles}></div>
           <div className="movie__item-title">{title}</div>
       </Link>

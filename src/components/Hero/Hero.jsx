@@ -17,7 +17,6 @@ export default function Hero({
 
   useEffect(() => {
     heroImg && setIsLoaded(true)
-    // console.log(heroImg)
   }, [heroImg])
 
   return (

@@ -3,7 +3,7 @@ import React from "react"
 import { useState, useCallback, useEffect } from "react/cjs/react.development"
 import "./MovieBanner.scss"
 import axios from "axios"
-import { useHistory } from "react-router"
+import BackButton from "../../BackButton/BackButton"
 
 const MovieBanner = ({ image, background, info }) => {
   const [activeTrailer, setActiveTrailer] = useState(true)
@@ -65,17 +65,11 @@ const MovieBanner = ({ image, background, info }) => {
     getTrailer()
   }, [getTrailer])
 
-  const history = useHistory()
-
-  const handleBack = () => {
-    history.goBack()
-  }
-
   return (
     <>
       {isLoaded && <div className="banner" style={styles.banner}>
         <div className="banner__content">
-          <div className="back" onClick={handleBack}><img src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png" alt="back" /> Назад</div>
+          <BackButton />
           <div className="banner__img-wrapper">            
           <div className="banner__img" style={styles.poster}></div>
               {activeTrailer && (

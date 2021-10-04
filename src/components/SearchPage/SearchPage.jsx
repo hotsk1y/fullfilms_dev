@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react"
-import "./Search.scss"
+import "./SearchPage.scss"
 import { useParams } from "react-router"
 import { useEffect } from "react/cjs/react.development"
 import axios from "axios"
@@ -8,13 +8,17 @@ import Content from "../Content/Content"
 import Loader from "../Loader/Loader"
 import CustomPagination from "../CustomPagination/CustomPagination"
 import NotFoundPage from "../NotFoundPage/NotFoundPage"
+import { useSelector } from "react-redux"
+import BackButton from "../BackButton/BackButton"
+import SearchInput from "../SearchInput/SearchInput"
 
-export default function Search({ setPage, page }) {
+export default function Search() {
   const { query, searchingPage } = useParams()
   const [searchResults, setSearchResults] = useState([])
   const [numberOfPages, setNumberOfPages] = useState(10)
 
   const [isLoaded, setIsLoaded] = useState(false)
+  const page = useSelector(state => state.movies.page)
 
   const fetchSearch = async userQuery => {
     setIsLoaded(false)
@@ -24,10 +28,6 @@ export default function Search({ setPage, page }) {
           process.env.REACT_APP_API_KEY
         }&language=ru&query=${userQuery.trimStart()}&page=${searchingPage}`,
       )
-      // const searchResults = response.data.results
-      // console.log(searchResults)
-      // return searchResults
-      console.log(response.data)
       return response.data
     } catch (error) {
       console.log(error)
@@ -37,7 +37,6 @@ export default function Search({ setPage, page }) {
   }
 
   useEffect(() => {
-    // console.log(searchingPage)
     fetchSearch(query).then(data => {
       setSearchResults(data.results)
       setNumberOfPages(data.total_pages)
@@ -46,24 +45,28 @@ export default function Search({ setPage, page }) {
   }, [query, page, searchingPage])
 
   return (
-    <div className="search">
-      <div className="container">
-        {isLoaded && searchResults.length ? (
-          <>
-            <div className="section__title">Результат поиска: </div>
-            <Content movies={searchResults} isSearch />
-            <CustomPagination
-              totalPages={numberOfPages}
-              setPage={setPage}
-              activePage={searchingPage}
-              query={query}
-              type={`search`}
-            />
-          </>
-        ) : (
-          <>{isLoaded && !searchResults.length ? <NotFoundPage /> : <Loader />}</>
-        )}
-      </div>
-    </div>
+    <>
+      {isLoaded && searchResults.length ? (          
+          <div className="searchPage">
+            <BackButton />
+            <div className="search__wrapper">
+              <div className="section__title">Поиск фильма</div>
+              <SearchInput />
+            </div>
+            <div className="container">
+              <div className="section__title">Результат поиска: </div>
+              <Content movies={searchResults} isSearch />
+              <CustomPagination
+                totalPages={numberOfPages}
+                activePage={searchingPage}
+                query={query}
+                type={`search`}
+              />
+            </div>
+          </div>
+      ) : (
+        <>{isLoaded && !searchResults.length ? <NotFoundPage /> : <Loader />}</>
+      )}
+    </>
   )
 }

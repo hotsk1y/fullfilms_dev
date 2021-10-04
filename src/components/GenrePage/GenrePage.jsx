@@ -10,17 +10,30 @@ import Content from "../Content/Content"
 import CustomPagination from "../CustomPagination/CustomPagination"
 import { fetchMoviesWithGenre } from "../../fetchingData"
 import Sorting from "../Sorting/Sorting"
+import { useSelector } from "react-redux"
+import GenresHeader from "../GenresHeader/GenresHeader"
+
+import {
+  setMoviesAction,
+  setNumberOfPagesAction,
+  setGenreTitleAction,
+  setIsActiveAction,
+} from "../../store/reducers/moviesReducer"
+import { useDispatch } from "react-redux"
+import BackButton from "../BackButton/BackButton"
 
 export default function GenrePage() {
+  const dispatch = useDispatch()
+
   const [isLoaded, setIsLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
 
   const { genreId, genrePage } = useParams()
 
-  const [movies, setMovies] = useState([])
+  const { movies, numberOfPages, genreTitle, isActive } = useSelector(
+    state => state.movies,
+  )
   const [page, setPage] = useState(genrePage)
-  const [numberOfPages, setNumberOfPages] = useState(10)
-  const [genreTitle, setGenreTitle] = useState(10)
 
   const history = useHistory()
   const handleBack = () => {
@@ -30,45 +43,53 @@ export default function GenrePage() {
   useEffect(() => {
     setIsLoaded(false)
     fetchGenres()
-        .then(res => res.genres)
-        .then(genres => {
-            const titles = genres.filter(g => +genreId === g.id)
-            const title = titles[0].name
-            setGenreTitle(title)
-        })
-        .catch(e => {
-            setIsError(true)
-        })
+      .then(res => res.genres)
+      .then(genres => {
+        const titles = genres.filter(g => +genreId === g.id)
+        const title = titles[0].name
+        dispatch(setGenreTitleAction(title))
+      })
+      .catch(e => {
+        setIsError(true)
+      })
     fetchMoviesWithGenre(genreId, page)
       .then(data => {
         setPage(genrePage)
-        setNumberOfPages(data.total_pages)
-        setMovies(data.results)
+        dispatch(setNumberOfPagesAction(data.total_pages))
+        dispatch(setMoviesAction(data.results))
         setIsLoaded(true)
       })
       .catch(e => {
         setIsError(true)
         setIsLoaded(true)
       })
-  }, [page, genreId, genrePage])
+  }, [page, genreId, genrePage, dispatch])
+
+  useEffect(() => {
+    document.body.style.overflowX = "hidden"
+  }, [isActive])
 
   return (
     <>
       {isLoaded && !isError ? (
-        <div className="genres">
-          <Sorting setPage={setPage} />
+        <>
+        <GenresHeader />
+        <div className="genres">          
           <div className="container">
-            <div className="section__title"><span>Жанр:</span> {genreTitle}</div>
+            <div className="section__title">
+              <span>Жанр:</span> {genreTitle}
+            </div>
             <Content movies={movies} />
             <CustomPagination
               totalPages={numberOfPages}
               setPage={setPage}
               activePage={page}
-              type='genre'
+              type="genre"
               query={genreId}
             />
           </div>
         </div>
+        </>
       ) : isLoaded && isError ? (
         <NotFoundPage />
       ) : (

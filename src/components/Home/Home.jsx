@@ -6,8 +6,10 @@ import axios from "axios"
 import Loader from "../Loader/Loader"
 import Sorting from "../Sorting/Sorting"
 import SearchInput from "../SearchInput/SearchInput"
+import { useSelector } from "react-redux"
+import Navbar from "../Navbar/Navbar"
 
-export default function Home({ trailerMovies, page, query, setQuery }) {
+export default function Home() {
   const [heroTitle, setHeroTitle] = useState(null)
   const [heroDescr, setHeroDescr] = useState(null)
   const [heroImg, setHeroImg] = useState(null)
@@ -18,6 +20,8 @@ export default function Home({ trailerMovies, page, query, setQuery }) {
   const [heroVideoLinkEn, setHeroVideoLinkEn] = useState(null)
 
   const [isLoaded, setIsLoaded] = useState(false)
+
+  const trailerMovies = useSelector(state => state.movies.trailerMovies)
 
   const selectHero = useCallback(() => {
     setIsLoaded(false)
@@ -74,6 +78,7 @@ export default function Home({ trailerMovies, page, query, setQuery }) {
     <>
       {isLoaded ? (
         <>
+          <Navbar />
           <div className="home">
             {trailerMovies.length > 0 && (
               <Hero
@@ -87,7 +92,7 @@ export default function Home({ trailerMovies, page, query, setQuery }) {
             <Sorting />
             <div className="search__wrapper">
               <div className="section__title">Поиск фильма по названию</div>
-              <SearchInput page={page} query={query} setQuery={setQuery} />
+              <SearchInput />
             </div>
             <div className="home__popular">
               <div className="container">

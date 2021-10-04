@@ -1,0 +1,29 @@
+.searchPage {
+  .search__wrapper {
+    background-color: #111;
+  }
+
+  .container {
+    margin-top: 100px;
+    .section__title {
+      color: #111;
+    }
+  }
+  .search__items {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .back {
+    color: #fff;
+    img {
+      filter: invert(100%);
+    }
+  }
+
+  .search__btn {
+    background-color: #111;
+  }
+}

@@ -8,16 +8,24 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage"
 import MovieItem from "../MovieItem/MovieItem"
 
 import { fetchActorFilms, fetchActorInfo } from "../../fetchingData"
+import { useDispatch } from "react-redux"
+
+import {
+  setActorFilmsAction,
+  setActorInfoAction,
+} from "../../store/reducers/actorReducer"
+import { useSelector } from "react-redux"
 
 export default function Actor() {
+  const dispatch = useDispatch()
+
+  const { actorFilms, actorInfo } = useSelector(state => state.actor)
+
   const [isLoaded, setIsLoaded] = useState(false)
   const [isError, setIsError] = useState(false)
 
-  const [actorFilms, setActorFilms] = useState([])
-  const [actorInfo, setActorInfo] = useState([])
   const [birth, setBirth] = useState([])
 
-  
   const { actorId } = useParams()
 
   const history = useHistory()
@@ -30,7 +38,7 @@ export default function Actor() {
 
     fetchActorFilms(actorId)
       .then(res => {
-        setActorFilms(res)
+        dispatch(setActorFilmsAction(res))
       })
       .catch(e => {
         setIsError(true)
@@ -38,7 +46,7 @@ export default function Actor() {
 
     fetchActorInfo(actorId)
       .then(res => {
-        setActorInfo(res)
+        dispatch(setActorInfoAction(res))
         const birthday = new Date(res.birthday).toLocaleString("en", {
           year: "numeric",
           month: "long",
@@ -51,14 +59,20 @@ export default function Actor() {
         setIsError(true)
         setIsLoaded(true)
       })
-  }, [actorId])
+  }, [actorId, dispatch])
 
   return (
     <>
       {isLoaded && !isError ? (
         <div className="actor">
           <div className="container">
-          <div className="back" onClick={handleBack}><img src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png" alt="back" /> Назад</div>
+            <div className="back" onClick={handleBack}>
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png"
+                alt="back"
+              />{" "}
+              Назад
+            </div>
             <div className="actor__card">
               <div className="actor__img">
                 <img
@@ -80,13 +94,22 @@ export default function Actor() {
             </div>
           </div>
           <div className="actor__movies-wrapper">
-          {actorFilms.cast && <div className="actor__movies">
-              <div className="container">
-              {actorFilms.cast.map(movie => {
-                  return <MovieItem id={movie.id} key={movie.id} title={movie.title} image={movie.poster_path} />
-              })}
+            {actorFilms.cast && (
+              <div className="actor__movies">
+                <div className="container">
+                  {actorFilms.cast.map(movie => {
+                    return (
+                      <MovieItem
+                        id={movie.id}
+                        key={movie.id}
+                        title={movie.title}
+                        image={movie.poster_path}
+                      />
+                    )
+                  })}
+                </div>
               </div>
-          </div>}
+            )}
           </div>
         </div>
       ) : isLoaded && isError ? (

@@ -2,14 +2,19 @@
 import React from "react"
 import Pagination from "@mui/material/Pagination"
 import { useHistory } from "react-router"
+import { setPageAction } from "../../store/reducers/moviesReducer"
 
 import './CustomPagination.scss'
+import { useDispatch, useSelector } from "react-redux"
 
-const CustomPagination = ({ totalPages, setPage, activePage, query, type }) => {
+const CustomPagination = ({ activePage, query, type }) => {
   const history = useHistory()
+  const dispatch = useDispatch()
+
+  const totalPages = useSelector(state => state.movies.numberOfPages)
 
   const handlePageChange = page => {
-    setPage(page)
+    dispatch(setPageAction(page))
     window.scroll(0, 0)
     
     switch (type) {

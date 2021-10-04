@@ -3,12 +3,15 @@ import "./Navbar.scss"
 import logo from "../Navbar/big-logo.png"
 import { Link } from "react-router-dom"
 import { fetchPopular } from "../../fetchingData"
+import { useDispatch } from "react-redux"
+import { setQueryAction, setMoviesAction, setIsLoadedAction, setPageAction } from "../../store/reducers/moviesReducer"
 
-const Navbar = ({setQuery, setPage, setIsSearch, setMovies, setIsLoaded}) => {
+const Navbar = () => {
+
+  const dispatch = useDispatch()
   const [active, setActive] = useState(false)
 
   const showBar = () => {
-    // console.log(window.scrollY)
     if (window.scrollY > 175) {
       setActive(true)
     } else {
@@ -22,14 +25,13 @@ const Navbar = ({setQuery, setPage, setIsSearch, setMovies, setIsLoaded}) => {
   }, [])
 
   const cleanData = () => {
-    console.log(123)
-    setQuery("")
-    setPage(1)
-    setIsSearch(false)
+    dispatch(setIsLoadedAction(false))
+    dispatch(setQueryAction(''))
+    dispatch(setPageAction(1))
     fetchPopular(1)
-      .then(data => setMovies(data.results))
+      .then(data => dispatch(setMoviesAction(data.results)))
       .catch()
-      .finally(setIsLoaded(true))
+      .finally(dispatch(setIsLoadedAction(true)))
     window.scrollTo(0, 0)
   }
 

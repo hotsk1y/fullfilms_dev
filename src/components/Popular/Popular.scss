@@ -7,7 +7,42 @@
         margin-bottom: 50px;
         color: #111;
     }
-    .content {
-        
+    
+    .genres__btn {
+        position: absolute;
+        top: 20px;
+        right: 50px;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+        cursor: pointer;
+        img {
+            height: 100%;
+        }
+        &.close {
+            img{
+                filter: invert(100%);
+            }
+        }
+    }
+
+    .genres__sorting-wrapper{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: #111;
+        transform: translate3d(100%,0,0);
+        transition: all .3s ease-out;
+        z-index: 2;
+        &.active {
+            transform: translate3d(0, 0, 0);
+        }
     }
 }
