@@ -35,7 +35,7 @@ export default function Hero({
                     rel="noreferrer"
                     className="hero__btn"
                   >
-                    Смотреть трейлер
+                    Watch the trailer
                   </a>
                 )}
               </div>

@@ -16,7 +16,6 @@ export default function Home() {
   const [activeTrailer, setActiveTrailer] = useState(true)
   const [heroTrailer, setHeroTrailer] = useState(null)
 
-  const [heroVideoLinkRu, setHeroVideoLinkRu] = useState(null)
   const [heroVideoLinkEn, setHeroVideoLinkEn] = useState(null)
 
   const [isLoaded, setIsLoaded] = useState(false)
@@ -35,9 +34,6 @@ export default function Home() {
         )
         setHeroTitle(trailerMovies[i].title)
         setHeroDescr(trailerMovies[i].overview)
-        setHeroVideoLinkRu(
-          `https://api.themoviedb.org/3/movie/${trailerMovies[i].id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
-        )
         setHeroVideoLinkEn(
           `https://api.themoviedb.org/3/movie/${trailerMovies[i].id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
         )
@@ -49,25 +45,19 @@ export default function Home() {
 
   const getTrailer = useCallback(() => {
     setIsLoaded(false)
-    if (heroVideoLinkRu || heroVideoLinkEn) {
+    if (heroVideoLinkEn) {
       axios
-        .get(heroVideoLinkRu)
-        .then(res => setHeroTrailer(res.data.results[0].key))
+        .get(heroVideoLinkEn)
+        .then(res => {
+          setHeroTrailer(res.data.results[0].key)
+        })
         .catch(e => {
-          console.log("Russian trailer not found")
-          axios
-            .get(heroVideoLinkEn)
-            .then(res => {
-              setHeroTrailer(res.data.results[0].key)
-            })
-            .catch(e => {
-              console.log("There is no trailer for this movie")
-              setActiveTrailer(false)
-            })
+          console.log("There is no trailer for this movie")
+          setActiveTrailer(false)
         })
     }
     setIsLoaded(true)
-  }, [heroVideoLinkRu, heroVideoLinkEn])
+  }, [heroVideoLinkEn])
 
   useEffect(() => {
     selectHero()
@@ -91,12 +81,12 @@ export default function Home() {
             )}
             <Sorting />
             <div className="search__wrapper">
-              <div className="section__title">Поиск фильма по названию</div>
+              <div className="section__title">Search for a movie by title</div>
               <SearchInput />
             </div>
             <div className="home__popular">
               <div className="container">
-                <div className="section__title">Сейчас в кинотеатрах</div>
+                <div className="section__title">Now in cinemas</div>
                 <Content movies={trailerMovies} />
               </div>
             </div>

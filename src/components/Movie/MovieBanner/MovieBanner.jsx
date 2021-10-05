@@ -8,7 +8,6 @@ import BackButton from "../../BackButton/BackButton"
 const MovieBanner = ({ image, background, info }) => {
   const [activeTrailer, setActiveTrailer] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [movieVideoLinkRu, setMovieVideoLinkRu] = useState(null)
   const [movieVideoLinkEn, setMovieVideoLinkEn] = useState(null)
   const [movieTrailer, setMovieTrailer] = useState(null)
 
@@ -35,12 +34,7 @@ const MovieBanner = ({ image, background, info }) => {
 
   const getTrailer = useCallback(() => {
     setIsLoaded(false)
-    if (movieVideoLinkRu || movieVideoLinkEn) {
-      axios
-        .get(movieVideoLinkRu)
-        .then(res => setMovieTrailer(res.data.results[0].key))
-        .catch(e => {
-          console.log("Russian trailer not found")
+    if (movieVideoLinkEn) {
           axios
             .get(movieVideoLinkEn)
             .then(res => {
@@ -50,15 +44,11 @@ const MovieBanner = ({ image, background, info }) => {
               console.log("There is no trailer for this movie")
               setActiveTrailer(false)
             })
-        })
     }
     setIsLoaded(true)
-  }, [movieVideoLinkRu, movieVideoLinkEn])
+  }, [movieVideoLinkEn])
 
   useEffect(() => {
-    setMovieVideoLinkRu(
-      `https://api.themoviedb.org/3/movie/${info.id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=ru`,
-    )
     setMovieVideoLinkEn(
       `https://api.themoviedb.org/3/movie/${info.id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
     )
@@ -80,7 +70,7 @@ const MovieBanner = ({ image, background, info }) => {
                   rel="noreferrer"
                 >
                   <img src="https://cdn-icons-png.flaticon.com/512/13/13021.png" alt="play" />
-                  Смотреть трейлер
+                  Watch the trailer
                 </a>
               )}         
           </div>

@@ -1,5 +1,8 @@
 .movie__item-wrapper {
   width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .movie__item {

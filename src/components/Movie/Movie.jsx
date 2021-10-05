@@ -104,7 +104,7 @@ export default function Movie() {
         dispatch(setInfoAction(res))
         const realiseDate = new Date(res.year)
         const getYear = realiseDate.getFullYear()
-        const premiereDate = realiseDate.toLocaleString("ru", {
+        const premiereDate = realiseDate.toLocaleString("en", {
           year: "numeric",
           month: "long",
           day: "numeric",
@@ -157,12 +157,12 @@ export default function Movie() {
             <div className="container">
               {Object.keys(info).length > 0 && actors.length > 2 && (
                 <div className="movie_credits">
-                  <div className="about__title">О фильме</div>
+                  <div className="about__title">About the film</div>
                   <div className="credit__year credit__item">
-                    <span>Год:</span> {year}
+                    <span>Year:</span> {year}
                   </div>
                   <div className="credit__country credit__item">
-                    <span>Страна:</span>
+                    <span>Country:</span>
                     {info.country.length > 0 ? (
                       info.country.map(c => {
                         return (
@@ -177,7 +177,7 @@ export default function Movie() {
                     )}
                   </div>
                   <div className="credit__genre credit__item">
-                    <span>Жанр: </span>
+                    <span>Genre: </span>
                     {info.genre.map(g => {
                       return (
                         <span key={g.name} className="many">
@@ -188,55 +188,55 @@ export default function Movie() {
                     })}
                   </div>
                   <div className="credit__slogan credit__item">
-                    <span>Слоган:</span>{" "}
+                    <span>Slogan:</span>{" "}
                     {info.slogan ? <>{info.slogan}</> : "—"}
                   </div>
                   <div className="credit__director credit__item">
-                    <span>Режиссер:</span>{" "}
+                    <span>Director:</span>{" "}
                     {director.length > 0 ? director : "?"}
                   </div>
                   <div className="credit__screenplay credit__item">
-                    <span>Сценарий:</span>{" "}
+                    <span>Screenplay:</span>{" "}
                     {screenplay.length > 0
                       ? screenplay.map(i => <span className="many">{i}</span>)
                       : "?"}
                   </div>
                   <div className="credit__producer credit__item">
-                    <span>Продюсер:</span>{" "}
+                    <span>Producer:</span>{" "}
                     {producer.length > 0
                       ? producer.map(i => <span className="many">{i}</span>)
                       : "?"}
                   </div>
                   <div className="credit__camera credit__item">
-                    <span>Оператор:</span>{" "}
+                    <span>Operator:</span>{" "}
                     {camera.length > 0
                       ? camera.map(i => <span className="many">{i}</span>)
                       : "?"}
                   </div>
                   <div className="credit__sound credit__item">
-                    <span>Композитор:</span>{" "}
+                    <span>Composer:</span>{" "}
                     {sound.length > 0
                       ? sound.map(i => <span className="many">{i}</span>)
                       : "?"}
                   </div>
                   <div className="credit__art credit__item">
-                    <span>Художник:</span>{" "}
+                    <span>Artist:</span>{" "}
                     {art.length > 0
                       ? art.map(i => <span className="many">{i}</span>)
                       : "?"}
                   </div>
                   <div className="credit__editor credit__item">
-                    <span>Монтаж:</span>{" "}
+                    <span>Editing:</span>{" "}
                     {editor.length > 0
                       ? editor.map(i => <span className="many">{i}</span>)
                       : "?"}
                   </div>
                   <div className="credit__premiere credit__item">
-                    <span>Премьера в мире:</span> {premiere ? premiere : "?"}
+                    <span>World premiere:</span> {premiere ? premiere : "?"}
                   </div>
                   <div className="credit__time credit__item">
-                    <span>Время:</span> {Math.trunc(info.runtime / 60)}ч.{" "}
-                    {info.runtime % 60}мин.
+                    <span>Duration:</span> {Math.trunc(info.runtime / 60)}h.{" "}
+                    {info.runtime % 60}m.
                   </div>
                 </div>
               )}
@@ -244,7 +244,7 @@ export default function Movie() {
             {actors.length > 0 && (
               <div className="actors">
                 <div className="container">
-                  <div className="actors__title">Актеры</div>
+                  <div className="actors__title">Actors</div>
                   <div className="actors__wrapper">
                     {actors.map(a => {
                       return <ActorItem key={a.id} actor={a} />

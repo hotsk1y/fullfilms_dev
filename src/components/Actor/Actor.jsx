@@ -135,7 +135,7 @@ export default function Actor() {
           <div className="actor__movies-wrapper">
             {actorFilms.cast && (
               <div className="actor__movies">
-                <div className="section__title">Снимался в фильмах</div>
+                <div className="section__title">Starred in</div>
                 <div className="container">
                   {actorFilms.cast.map(movie => {
                     return (

@@ -28,7 +28,7 @@ export default function Search() {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/multi?api_key=${
           process.env.REACT_APP_API_KEY
-        }&language=ru&query=${userQuery.trimStart()}&page=${searchingPage}`,
+        }&query=${userQuery.trimStart()}&page=${searchingPage}`,
       )
       return response.data
     } catch (error) {
@@ -53,11 +53,11 @@ export default function Search() {
         <div className="searchPage">
           <GenresHeader />
           <div className="search__wrapper">
-            <div className="section__title">Поиск фильма</div>
+            <div className="section__title">Movie search</div>
             <SearchInput />
           </div>
           <div className="container">
-            <div className="section__title">Результат поиска: </div>
+            <div className="section__title">Search results: </div>
             <Content movies={searchResults} isSearch />
             <CustomPagination
               totalPages={numberOfPages}

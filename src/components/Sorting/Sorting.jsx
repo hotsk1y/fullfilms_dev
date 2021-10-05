@@ -23,14 +23,14 @@ export default function Sorting() {
 
   return (
     <div className="sorting">
-      <h2 className="sorting__title">Поиск по жанрам</h2>
+      <h2 className="sorting__title">Search by genre</h2>
       <div className="storting__wrapper">
         <Link
           to={`/popular/1`}
           className="sorting__btn"
           onClick={() => closeMenu()}
         >
-          <div>популярные</div>
+          <div>Popular</div>
         </Link>
         {genres.length > 0 &&
           genres.map(g => {

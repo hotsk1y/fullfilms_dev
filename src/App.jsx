@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./App.scss"
 import "./styles/global.scss"
-// import Header from "./components/Header/Header"
-import Navbar from "./components/Navbar/Navbar"
 import Movie from "./components/Movie/Movie"
 import Home from "./components/Home/Home"
 import SearchPage from "./components/SearchPage/SearchPage"
@@ -39,15 +37,6 @@ const App = () => {
       <div className="App">
         {isLoaded && !isError ? (
           <>
-            {/* <Header
-              query={query}
-              setQuery={setQuery}
-              setMovies={setMovies}
-              setIsSearch={setIsSearch}
-              setIsLoaded={setIsLoaded}
-              page={page}
-              setPage={setPage}
-            /> */}
             <Switch>
               <Route exact path="/">
                 <Home />
@@ -60,10 +49,6 @@ const App = () => {
               <Route exact path="/actor/:actorId">
                 <Actor />
               </Route>
-
-              {/* <Route exact path="/searchActor/:actorQuery">
-                <SearchActor />
-              </Route> */}
 
               <Route exact path={`/popular/:popularPage`}>
                 <Popular />

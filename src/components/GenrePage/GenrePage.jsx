@@ -69,7 +69,7 @@ export default function GenrePage() {
         <div className="genres">          
           <div className="container">
             <div className="section__title">
-              <span>Жанр:</span> {genreTitle}
+              <span>Genre:</span> {genreTitle}
             </div>
             <Content movies={movies} />
             <CustomPagination

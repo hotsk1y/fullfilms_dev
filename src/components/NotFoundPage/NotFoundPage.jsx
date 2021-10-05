@@ -16,14 +16,14 @@ const NotFoundPage = () => {
       <div className="container">
         <div className="wrapper">
           <h1 className="notFound__title">
-            В базе данных не нашлось информации <br /> об этом запросе :(
+            Nothing found :(
           </h1>
           <div className="back" onClick={handleBack}>
             <img
               src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png"
               alt="back"
             />{" "}
-            Назад
+            Go back
           </div>
           <div className="cat">
             <img src={sadCat} alt="sad cat" />

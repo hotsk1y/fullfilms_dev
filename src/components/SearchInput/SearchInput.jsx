@@ -32,7 +32,7 @@ export default function SearchInput() {
       <input
         className="search__input"
         type="text"
-        placeholder="Название фильма..."
+        placeholder="Movie title..."
         onChange={e => handleChange(e)}
         value={query}
         onKeyDown={handleKeyDown}
@@ -41,7 +41,7 @@ export default function SearchInput() {
         to={query.trim().length > 0 && `/search/${page}/${query}`}
         className="search__btn"
       >
-        Поиск...
+        Search...
       </Link>
     </div>
   )

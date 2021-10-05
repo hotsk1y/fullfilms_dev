@@ -53,7 +53,7 @@ export default function Popular() {
         <div className="popular">
           <div className="popular__wrapper">
           <div className="container">
-            <div className="section__title">Популярные</div>
+            <div className="section__title">Popular</div>
             <Content movies={movies} />
             <CustomPagination
               activePage={popularPage}
