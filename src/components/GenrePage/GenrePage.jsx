@@ -1,7 +1,7 @@
 /* eslint-disable no-fallthrough */
 import React from "react"
 import "./GenrePage.scss"
-import { useParams, useHistory } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react/cjs/react.development"
 import Loader from "../Loader/Loader"
 import NotFoundPage from "../NotFoundPage/NotFoundPage"
@@ -9,7 +9,6 @@ import { fetchGenres } from "../../fetchingData"
 import Content from "../Content/Content"
 import CustomPagination from "../CustomPagination/CustomPagination"
 import { fetchMoviesWithGenre } from "../../fetchingData"
-import Sorting from "../Sorting/Sorting"
 import { useSelector } from "react-redux"
 import GenresHeader from "../GenresHeader/GenresHeader"
 
@@ -17,10 +16,9 @@ import {
   setMoviesAction,
   setNumberOfPagesAction,
   setGenreTitleAction,
-  setIsActiveAction,
+  setPageAction,
 } from "../../store/reducers/moviesReducer"
 import { useDispatch } from "react-redux"
-import BackButton from "../BackButton/BackButton"
 
 export default function GenrePage() {
   const dispatch = useDispatch()
@@ -33,12 +31,6 @@ export default function GenrePage() {
   const { movies, numberOfPages, genreTitle, isActive } = useSelector(
     state => state.movies,
   )
-  const [page, setPage] = useState(genrePage)
-
-  const history = useHistory()
-  const handleBack = () => {
-    history.goBack()
-  }
 
   useEffect(() => {
     setIsLoaded(false)
@@ -52,9 +44,9 @@ export default function GenrePage() {
       .catch(e => {
         setIsError(true)
       })
-    fetchMoviesWithGenre(genreId, page)
+    fetchMoviesWithGenre(genreId, genrePage)
       .then(data => {
-        setPage(genrePage)
+        dispatch(setPageAction(genrePage))
         dispatch(setNumberOfPagesAction(data.total_pages))
         dispatch(setMoviesAction(data.results))
         setIsLoaded(true)
@@ -63,7 +55,7 @@ export default function GenrePage() {
         setIsError(true)
         setIsLoaded(true)
       })
-  }, [page, genreId, genrePage, dispatch])
+  }, [genreId, genrePage, dispatch])
 
   useEffect(() => {
     document.body.style.overflowX = "hidden"
@@ -82,8 +74,7 @@ export default function GenrePage() {
             <Content movies={movies} />
             <CustomPagination
               totalPages={numberOfPages}
-              setPage={setPage}
-              activePage={page}
+              activePage={genrePage}
               type="genre"
               query={genreId}
             />

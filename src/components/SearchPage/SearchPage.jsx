@@ -9,16 +9,18 @@ import Loader from "../Loader/Loader"
 import CustomPagination from "../CustomPagination/CustomPagination"
 import NotFoundPage from "../NotFoundPage/NotFoundPage"
 import { useSelector } from "react-redux"
-import BackButton from "../BackButton/BackButton"
 import SearchInput from "../SearchInput/SearchInput"
+import GenresHeader from "../GenresHeader/GenresHeader"
+import { useDispatch } from "react-redux"
+import { setNumberOfPagesAction } from "../../store/reducers/moviesReducer"
 
 export default function Search() {
+  const dispatch = useDispatch()
   const { query, searchingPage } = useParams()
   const [searchResults, setSearchResults] = useState([])
-  const [numberOfPages, setNumberOfPages] = useState(10)
 
   const [isLoaded, setIsLoaded] = useState(false)
-  const page = useSelector(state => state.movies.page)
+  const { page, numberOfPages } = useSelector(state => state.movies)
 
   const fetchSearch = async userQuery => {
     setIsLoaded(false)
@@ -38,32 +40,33 @@ export default function Search() {
 
   useEffect(() => {
     fetchSearch(query).then(data => {
+      console.log(data)
       setSearchResults(data.results)
-      setNumberOfPages(data.total_pages)
+      dispatch(setNumberOfPagesAction(data.total_pages))
     })
     console.log(searchResults)
   }, [query, page, searchingPage])
 
   return (
     <>
-      {isLoaded && searchResults.length ? (          
-          <div className="searchPage">
-            <BackButton />
-            <div className="search__wrapper">
-              <div className="section__title">Поиск фильма</div>
-              <SearchInput />
-            </div>
-            <div className="container">
-              <div className="section__title">Результат поиска: </div>
-              <Content movies={searchResults} isSearch />
-              <CustomPagination
-                totalPages={numberOfPages}
-                activePage={searchingPage}
-                query={query}
-                type={`search`}
-              />
-            </div>
+      {isLoaded && searchResults.length ? (
+        <div className="searchPage">
+          <GenresHeader />
+          <div className="search__wrapper">
+            <div className="section__title">Поиск фильма</div>
+            <SearchInput />
           </div>
+          <div className="container">
+            <div className="section__title">Результат поиска: </div>
+            <Content movies={searchResults} isSearch />
+            <CustomPagination
+              totalPages={numberOfPages}
+              activePage={searchingPage}
+              query={query}
+              type={`search`}
+            />
+          </div>
+        </div>
       ) : (
         <>{isLoaded && !searchResults.length ? <NotFoundPage /> : <Loader />}</>
       )}

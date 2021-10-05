@@ -4,10 +4,14 @@ import logo from "../Navbar/big-logo.png"
 import { Link } from "react-router-dom"
 import { fetchPopular } from "../../fetchingData"
 import { useDispatch } from "react-redux"
-import { setQueryAction, setMoviesAction, setIsLoadedAction, setPageAction } from "../../store/reducers/moviesReducer"
+import {
+  setQueryAction,
+  setMoviesAction,
+  setIsLoadedAction,
+  setPageAction,
+} from "../../store/reducers/moviesReducer"
 
 const Navbar = () => {
-
   const dispatch = useDispatch()
   const [active, setActive] = useState(false)
 
@@ -26,7 +30,7 @@ const Navbar = () => {
 
   const cleanData = () => {
     dispatch(setIsLoadedAction(false))
-    dispatch(setQueryAction(''))
+    dispatch(setQueryAction(""))
     dispatch(setPageAction(1))
     fetchPopular(1)
       .then(data => dispatch(setMoviesAction(data.results)))
@@ -39,7 +43,7 @@ const Navbar = () => {
     <div className={`${active ? `navbar active` : `navbar`}`}>
       <div className="container">
         <Link className="logo" to="/" onClick={cleanData}>
-          <img src={logo} className="logo" alt="" />
+          <img src={logo} className="logo" alt="logo" />
         </Link>
       </div>
     </div>

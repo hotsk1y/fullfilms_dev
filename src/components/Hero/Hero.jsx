@@ -21,26 +21,28 @@ export default function Hero({
 
   return (
     <>
-    {isLoaded && <>
-      <div className="hero" style={styles}>
-      <div className="wrapper">
-        <div className="hero__info">
-          <div className="hero__title">{heroTitle}</div>
-          <div className="hero__descr">{heroDescr}</div>
-            {activeTrailer && (
-              <a
-                href={`https://www.youtube.com/watch?v=${heroTrailer}`}
-                target="_blank"
-                rel="noreferrer"
-                className="hero__btn"
-              >
-                Смотреть трейлер
-              </a>
-            )}
-        </div>
-      </div>
-    </div>
-    </>}
+      {isLoaded && (
+        <>
+          <div className="hero" style={styles}>
+            <div className="wrapper">
+              <div className="hero__info">
+                <div className="hero__title">{heroTitle}</div>
+                <div className="hero__descr">{heroDescr}</div>
+                {activeTrailer && (
+                  <a
+                    href={`https://www.youtube.com/watch?v=${heroTrailer}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hero__btn"
+                  >
+                    Смотреть трейлер
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   )
 }

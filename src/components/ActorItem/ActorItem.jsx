@@ -1,7 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import "./ActorItem.scss"
 
-const ActorItem = ({actor}) => {
+const ActorItem = ({ actor }) => {
   return (
     <div className="actor__item">
       <Link to={`/actor/${actor.id}`} className="actor__info">

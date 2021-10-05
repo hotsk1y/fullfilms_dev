@@ -1,10 +1,11 @@
 .searchPage {
   .search__wrapper {
     background-color: #111;
+    background-color: #ea2845;
   }
 
   .container {
-    margin-top: 100px;
+    margin-top: 50px;
     .section__title {
       color: #111;
     }
@@ -14,16 +15,5 @@
     flex-wrap: wrap;
     max-width: 1200px;
     margin: 0 auto;
-  }
-
-  .back {
-    color: #fff;
-    img {
-      filter: invert(100%);
-    }
-  }
-
-  .search__btn {
-    background-color: #111;
   }
 }

@@ -45,19 +45,19 @@ export const moviePageReducer = (state = defaultMoviePageState, action) => {
     case PREMIERE:
       return { ...state, premiere: action.payload }
     case DIRECTOR:
-      return { ...state, director: [...state.director, action.payload] }
+      return { ...state, director: action.payload }
     case SCREENPLAY:
-      return { ...state, screenplay: [...state.screenplay, action.payload] }
+      return { ...state, screenplay: action.payload }
     case PRODUCER:
-      return { ...state, producer: [...state.producer, action.payload] }
+      return { ...state, producer: action.payload }
     case CAMERA:
-      return { ...state, camera: [...state.camera, action.payload] }
+      return { ...state, camera: action.payload }
     case SOUND:
-      return { ...state, sound: [...state.sound, action.payload] }
+      return { ...state, sound: action.payload }
     case ART:
-      return { ...state, art: [...state.art, action.payload] }
+      return { ...state, art: action.payload }
     case EDITOR:
-      return { ...state, editor: [...state.editor, action.payload] }
+      return { ...state, editor: action.payload }
 
     default:
       return state

@@ -18,7 +18,13 @@ const NotFoundPage = () => {
           <h1 className="notFound__title">
             В базе данных не нашлось информации <br /> об этом запросе :(
           </h1>
-          <div className="back" onClick={handleBack}><img src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png" alt="back" /> Назад</div>
+          <div className="back" onClick={handleBack}>
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png"
+              alt="back"
+            />{" "}
+            Назад
+          </div>
           <div className="cat">
             <img src={sadCat} alt="sad cat" />
           </div>

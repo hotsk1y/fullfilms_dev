@@ -1,17 +1,15 @@
 /* eslint-disable no-fallthrough */
 import React from "react"
 import "./Popular.scss"
-import { useParams, useHistory } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react/cjs/react.development"
 import Loader from "../Loader/Loader"
 import NotFoundPage from "../NotFoundPage/NotFoundPage"
 import { fetchPopular } from "../../fetchingData"
 import Content from "../Content/Content"
 import CustomPagination from "../CustomPagination/CustomPagination"
-import Sorting from "../Sorting/Sorting"
 import { useDispatch, useSelector } from "react-redux"
-import { setMoviesAction, setIsActiveAction } from "../../store/reducers/moviesReducer"
-import BackButton from "../BackButton/BackButton"
+import { setMoviesAction, setNumberOfPagesAction } from "../../store/reducers/moviesReducer"
 import GenresHeader from "../GenresHeader/GenresHeader"
 
 export default function Popular() {
@@ -24,30 +22,14 @@ export default function Popular() {
   
   
   const {movies, isActive} = useSelector(state => state.movies)
-  const [page, setPage] = useState(popularPage)
-  const [numberOfPages, setNumberOfPages] = useState(10)  
-
-  const history = useHistory()
-  const handleBack = () => {
-    history.goBack()
-  }
-
-  const handleOpen = () => {
-    dispatch(setIsActiveAction(true))
-    document.body.style.overflow = "hidden"
-  }
-  const handleClose = () => {
-    dispatch(setIsActiveAction(false))
-    document.body.style.overflow = "auto"
-  }
 
   useEffect(() => {
     setIsLoaded(false)
-    fetchPopular(page)
+    fetchPopular(popularPage)
       .then(data => {
         console.log(data)
         dispatch(setMoviesAction(data.results))
-        setNumberOfPages(data.total_pages)
+        dispatch(setNumberOfPagesAction(data.total_pages))
         setIsLoaded(true)
       })
       .catch(e => {
@@ -55,7 +37,7 @@ export default function Popular() {
         setIsError(true)
         setIsLoaded(true)
       })
-  }, [page])
+  }, [popularPage])
 
   console.log(movies)
 

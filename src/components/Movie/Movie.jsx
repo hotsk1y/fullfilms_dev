@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-fallthrough */
 import React from "react"
 import "./Movie.scss"
 import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react/cjs/react.development"
+import { useCallback, useEffect, useState } from "react/cjs/react.development"
 import { fetchMovieInfo, fetchMovieCredits } from "../../fetchingData"
 import Loader from "../Loader/Loader"
 import MovieBanner from "./MovieBanner/MovieBanner"
@@ -10,21 +11,21 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage"
 import ActorItem from "../ActorItem/ActorItem"
 import { useDispatch, useSelector } from "react-redux"
 
-import { 
-  setActorsAction, 
-  setArtAction, 
-  setBackgroundAction, 
-  setCameraAction, 
-  setDirectorAction, 
-  setEditorAction, 
-  setImageAction, 
-  setInfoAction, 
-  setPremiereAction, 
-  setProducerAction, 
-  setScreenplayAction, 
-  setSoundAction, 
+import {
+  setActorsAction,
+  setArtAction,
+  setBackgroundAction,
+  setCameraAction,
+  setDirectorAction,
+  setEditorAction,
+  setImageAction,
+  setInfoAction,
+  setPremiereAction,
+  setProducerAction,
+  setScreenplayAction,
+  setSoundAction,
   setYearAction,
- } from "../../store/reducers/moviePageReducer"
+} from "../../store/reducers/moviePageReducer"
 import Navbar from "../Navbar/Navbar"
 
 export default function Movie() {
@@ -35,8 +36,8 @@ export default function Movie() {
   const { movieId } = useParams()
 
   const {
-    info, 
-    image, 
+    info,
+    image,
     background,
     actors,
     year,
@@ -47,39 +48,54 @@ export default function Movie() {
     camera,
     sound,
     art,
-    editor
+    editor,
   } = useSelector(state => state.moviePage)
 
-  const getMovieCredits = data => {
-    data.map(i => {
-      if (i.job === "Director") {
-        dispatch(setDirectorAction(i.name))
-      }
-      if (i.job === "Screenplay" || i.job === "Writer") {
-        dispatch(setScreenplayAction(i.name))
-      }
-      if (
-        i.job === "Producer"
-      ) {
-        dispatch(setProducerAction(i.name))
-      }
-      if (i.job === "Director of Photography" || i.job === "Cinematography") {
-        dispatch(setCameraAction(i.name))
-      }
-      if (i.job === "Original Music Composer" || i.job === "Music") {
-        dispatch(setSoundAction(i.name))
-      }
-      if (
-        i.job === "Art Direction"
-      ) {
-        dispatch(setArtAction(i.name))
-      }
-      if (i.job === "Editor") {
-        dispatch(setEditorAction(i.name))
-      }
-      return null
-    })
+  const dataResults = {
+    directorJob: [],
+    screenplayJob: [],
+    producerJob: [],
+    cameraJob: [],
+    soundJob: [],
+    artJob: [],
+    editorJob: [],
   }
+  const getMovieCredits = useCallback(
+    data => {
+      data.map(i => {
+        if (i.job === "Director") {
+          dataResults.directorJob.push(i.name)
+          // dispatch(setDirectorAction(i.name))
+        }
+        if (i.job === "Screenplay" || i.job === "Writer") {
+          dataResults.screenplayJob.push(i.name)
+          // dispatch(setScreenplayAction(i.name))
+        }
+        if (i.job === "Producer") {
+          dataResults.producerJob.push(i.name)
+          // dispatch(setProducerAction(i.name))
+        }
+        if (i.job === "Director of Photography" || i.job === "Cinematography") {
+          dataResults.cameraJob.push(i.name)
+          // dispatch(setCameraAction(i.name))
+        }
+        if (i.job === "Original Music Composer" || i.job === "Music") {
+          dataResults.soundJob.push(i.name)
+          // dispatch(setSoundAction(i.name))
+        }
+        if (i.job === "Art Direction") {
+          dataResults.artJob.push(i.name)
+          // dispatch(setArtAction(i.name))
+        }
+        if (i.job === "Editor") {
+          dataResults.editorJob.push(i.name)
+          // dispatch(setEditorAction(i.name))
+        }
+        return null
+      })
+    },
+    [dispatch],
+  )
 
   useEffect(() => {
     setIsLoaded(false)
@@ -109,15 +125,21 @@ export default function Movie() {
       .then(res => {
         dispatch(setActorsAction(res.cast))
         getMovieCredits(res.crew)
+        console.log(dataResults)
+        dispatch(setDirectorAction(dataResults.directorJob))
+        dispatch(setScreenplayAction(dataResults.screenplayJob))
+        dispatch(setProducerAction(dataResults.producerJob))
+        dispatch(setCameraAction(dataResults.cameraJob))
+        dispatch(setSoundAction(dataResults.soundJob))
+        dispatch(setArtAction(dataResults.artJob))
+        dispatch(setEditorAction(dataResults.editorJob))
       })
       .catch(e => {
         console.log("credits error")
         setIsError(true)
         setIsLoaded(true)
       })
-  }, [movieId])
-
-  console.log(screenplay);
+  }, [movieId, dispatch, getMovieCredits])
 
   return (
     <>
@@ -151,7 +173,7 @@ export default function Movie() {
                         )
                       })
                     ) : (
-                      <>?</>
+                      <> ?</>
                     )}
                   </div>
                   <div className="credit__genre credit__item">
@@ -170,28 +192,47 @@ export default function Movie() {
                     {info.slogan ? <>{info.slogan}</> : "—"}
                   </div>
                   <div className="credit__director credit__item">
-                    <span>Режиссер:</span> {director}
+                    <span>Режиссер:</span>{" "}
+                    {director.length > 0 ? director : "?"}
                   </div>
                   <div className="credit__screenplay credit__item">
-                    <span>Сценарий:</span> {screenplay.length > 0 ? screenplay.map(i => <span className="many">{i}</span>) : '?'}
+                    <span>Сценарий:</span>{" "}
+                    {screenplay.length > 0
+                      ? screenplay.map(i => <span className="many">{i}</span>)
+                      : "?"}
                   </div>
                   <div className="credit__producer credit__item">
-                    <span>Продюсер:</span> {producer.length > 0 ? producer.map(i => <span className="many">{i}</span>) : '?'}
+                    <span>Продюсер:</span>{" "}
+                    {producer.length > 0
+                      ? producer.map(i => <span className="many">{i}</span>)
+                      : "?"}
                   </div>
                   <div className="credit__camera credit__item">
-                    <span>Оператор:</span> {camera.length > 0 ? camera.map(i => <span className="many">{i}</span>) : '?'}
+                    <span>Оператор:</span>{" "}
+                    {camera.length > 0
+                      ? camera.map(i => <span className="many">{i}</span>)
+                      : "?"}
                   </div>
                   <div className="credit__sound credit__item">
-                    <span>Композитор:</span> {sound.length > 0 ? sound.map(i => <span className="many">{i}</span>) : '?'}
+                    <span>Композитор:</span>{" "}
+                    {sound.length > 0
+                      ? sound.map(i => <span className="many">{i}</span>)
+                      : "?"}
                   </div>
                   <div className="credit__art credit__item">
-                    <span>Художник:</span> {art.length > 0 ? art.map(i => <span className="many">{i}</span>) : '?'}
+                    <span>Художник:</span>{" "}
+                    {art.length > 0
+                      ? art.map(i => <span className="many">{i}</span>)
+                      : "?"}
                   </div>
                   <div className="credit__editor credit__item">
-                    <span>Монтаж:</span> {editor ? editor.map(i => <span className="many">{i}</span>) : '?'}
+                    <span>Монтаж:</span>{" "}
+                    {editor.length > 0
+                      ? editor.map(i => <span className="many">{i}</span>)
+                      : "?"}
                   </div>
                   <div className="credit__premiere credit__item">
-                    <span>Премьера в мире:</span> {premiere}
+                    <span>Премьера в мире:</span> {premiere ? premiere : "?"}
                   </div>
                   <div className="credit__time credit__item">
                     <span>Время:</span> {Math.trunc(info.runtime / 60)}ч.{" "}
@@ -200,7 +241,7 @@ export default function Movie() {
                 </div>
               )}
             </div>
-            {actors.length > 0 && 
+            {actors.length > 0 && (
               <div className="actors">
                 <div className="container">
                   <div className="actors__title">Актеры</div>
@@ -210,7 +251,8 @@ export default function Movie() {
                     })}
                   </div>
                 </div>
-              </div>}
+              </div>
+            )}
           </div>
         </>
       ) : isLoaded && isError ? (
