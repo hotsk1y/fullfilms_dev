@@ -151,10 +151,12 @@ export default function Movie() {
               image={image}
               background={background}
               info={info}
-              isError={isError}
-              isLoaded={isLoaded}
             />
             <div className="container">
+              <div className="banner__info-mobile">
+                <div className="movie__title">{info.title}</div>
+                <div className="movie__descr">{info.descr}</div>
+              </div>
               {Object.keys(info).length > 0 && actors.length > 2 && (
                 <div className="movie_credits">
                   <div className="about__title">About the film</div>

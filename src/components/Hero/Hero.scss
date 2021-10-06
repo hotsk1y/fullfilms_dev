@@ -1,3 +1,5 @@
+@import '../../styles/mixins.scss';
+
 .hero {
   width: 100%;
   position: relative;
@@ -10,6 +12,13 @@
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
   min-height: 700px;
+
+  @include laptop {
+    background-size: auto !important;
+  }
+  @include mobileL {
+    min-height: 500px;
+  }
 
   .wrapper {
     display: flex;
@@ -25,17 +34,33 @@
 
       .hero__title {
         margin-bottom: 50px;
-        font-weight: 600;
+        font-weight: 800;
         font-size: 55px;
         line-height: 75px;
+
+        @include tablet {
+          font-size: 48px;
+          line-height: 72px;
+        }
+        @include mobileL {
+          font-size: 36px;
+          line-height: 48px;
+        }
       }
       .hero__descr {
         margin-bottom: 50px;
-
         font-weight: 500;
         max-width: 600px;
         font-size: 18px;
         line-height: 32px;
+
+        @include tablet {
+          line-height: 26px;
+        }
+        @include mobileL {
+          font-size: 16px;
+          line-height: 21px;
+        }
       }
     }
     .hero__btn {
@@ -50,6 +75,9 @@
       background: #ea2845;
       border: 2px solid #ea2845;
       color: #fff;
+      @include mobileL {
+        font-size: 14px;
+      }
       &:hover {
         background: 0 0;
       }

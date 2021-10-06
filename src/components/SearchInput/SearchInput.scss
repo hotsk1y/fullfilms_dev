@@ -1,8 +1,11 @@
+@import '../../styles/mixins.scss';
+
 .search {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 45px;
+  padding: 0 15px;
 }
 
 .search__input {
@@ -19,6 +22,13 @@
   &::placeholder {
     opacity: 0.7;
   }
+
+  @include mobileL {
+    width: 90%;
+  }
+  @include mobileM {
+    padding: 15px 15px;
+  }
 }
 .search__btn {
   background-color: #ea2845;
@@ -33,4 +43,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  @include mobileL {
+    padding: 10px 10px;
+  }
+  @include mobileS {
+    font-size: 12px;
+  }
 }

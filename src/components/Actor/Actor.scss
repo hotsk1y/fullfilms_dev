@@ -1,9 +1,17 @@
+@import '../../styles/mixins.scss';
+
 .actor {
   position: relative;
   background: #fff;
 
   .section__title {
     margin-bottom: 50px;
+    @include mobileL {
+      margin-bottom: 25px;
+    }
+    @include mobileS {
+      margin-bottom: 10px;
+    }
   }
 
   .actor__card {
@@ -19,9 +27,21 @@
     border-radius: 15px;
     border: 5px solid #222;
 
+    @include mobileL {
+      width: 100%;
+      height: 215px;
+    }
+    @include mobileS {
+      width: 100%;
+      height: 190px;
+    }
+
     .actor__img {
       height: 100%;
       width: 180px;
+      @include mobileL {
+        width: 30%;
+      }
       img {
         height: 100%;
         width: 100%;
@@ -29,10 +49,18 @@
       }
     }
 
-    .actor__info {
+    .actor__info {      
       text-align: left;
       font-size: 18px;
       padding: 10px 10px 5px 15px;
+
+      @include mobileL {
+        width: 70%;
+        font-size: 16px;
+      }
+      @include mobileS {
+        font-size: 14px;
+      }
       .actor__info-name {
         font-size: 24px;
         font-weight: 700;
@@ -57,6 +85,12 @@
 .actor__movies {
   background-color: #111;
   padding: 100px 0;
+  @include tablet {
+    padding: 50px 0;
+  }
+  @include mobileL {
+    padding: 25px 0 50px;
+  }
   .container {
     display: flex;
     flex-wrap: wrap;

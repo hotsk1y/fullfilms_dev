@@ -1,3 +1,5 @@
+@import '../../../styles/mixins.scss';
+
 .banner {
     width: 100%;
     position: relative;
@@ -10,6 +12,16 @@
     background-attachment: fixed !important;
     min-height: 700px;
     padding-bottom: 50px;
+
+    @include laptop {
+      background-size: auto !important;
+    }
+
+    @include mobileL {
+      background-position: top !important;
+      align-items: center;
+      padding-bottom: 0;
+    }
   
     .banner__content {
       margin: 0 auto;
@@ -20,6 +32,16 @@
       overflow: hidden;
       border-radius: 15px;
       overflow: hidden;
+
+      @include mobileL {
+        padding: 0;
+      }
+
+      .banner__img-wrapper {
+        @include mobileL {
+          margin-right: 0;
+        }
+      }
     }
   }
   
@@ -31,6 +53,10 @@
     transform: scale(100%);
     overflow: hidden;
     border-radius: 15px;
+
+    @include mobileL {
+
+    }
     img {
       width: 100%;
     }
@@ -40,16 +66,25 @@
     display: flex;
     flex-direction: column;
     width: 80%;
+    @include mobileL {
+      display: none;
+    }
   
     .movie__title {
       font-size: 42px;
       font-weight: 900;
       margin-bottom: 20px;
+      @include tablet {
+        font-size: 32px;
+      }
     }
   
     .movie__descr{
       font-size: 20px;
       margin-bottom: 50px;
+      @include tablet {
+        font-size: 16px;
+      }
     }
   }
 
@@ -70,10 +105,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @include tablet {
+      font-size: 13px;
+      padding: 15px 25px;
+    }
     img {
       width: 20px;
       filter: invert(100%);
       margin-right: 10px;
+      @include tablet {
+        width: 15px;
+      }
     }
     &:hover {
       background-color: #bd2138;

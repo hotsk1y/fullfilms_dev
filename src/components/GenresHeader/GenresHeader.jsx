@@ -7,6 +7,8 @@ import Sorting from "../Sorting/Sorting"
 import { setIsActiveAction } from "../../store/reducers/moviesReducer"
 import { useDispatch } from "react-redux"
 import logo from "./logo.png"
+import close from "./close.png"
+import menu from './menu.png'
 import {
   setIsLoadedAction,
   setQueryAction,
@@ -26,7 +28,7 @@ const GenresHeader = () => {
   }
   const handleClose = () => {
     dispatch(setIsActiveAction(false))
-    document.body.style.overflow = "auto"
+    document.body.style.overflow = "hidden auto"
   }
 
   const cleanData = () => {
@@ -42,7 +44,7 @@ const GenresHeader = () => {
 
   useEffect(() => {
     document.body.style.overflowX = "hidden"
-  }, [isActive])
+  }, [])
 
   return (
     <div className="genresHeader">
@@ -52,7 +54,7 @@ const GenresHeader = () => {
       </Link>
       <button className="genres__btn" onClick={() => handleOpen()}>
         <img
-          src="https://img-premium.flaticon.com/png/512/3887/premium/3887618.png?token=exp=1633352207~hmac=1bf8d24a1df4ae38a9a7cda01d08a0bd"
+          src={menu}
           alt="open"
         />
       </button>
@@ -65,7 +67,7 @@ const GenresHeader = () => {
       >
         <button className="genres__btn close" onClick={() => handleClose()}>
           <img
-            src="https://cdn-icons-png.flaticon.com/512/2919/2919543.png"
+            src={close}
             alt="close"
           />
         </button>

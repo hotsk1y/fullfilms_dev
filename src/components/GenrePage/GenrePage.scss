@@ -1,6 +1,12 @@
+@import '../../styles/mixins.scss';
+
 .genres {
   padding: 100px 0;
   overflow-x: hidden;
+
+  @include mobileL {
+    padding: 50px 0;
+  }
 
   .genres__btn {
     position: absolute;

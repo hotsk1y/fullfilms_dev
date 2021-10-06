@@ -15,7 +15,7 @@ const BackButton = () => {
         src="https://cdn-icons-png.flaticon.com/512/2223/2223615.png"
         alt="back"
       />{" "}
-      Go back
+      <span>Go back</span>
     </div>
   )
 }

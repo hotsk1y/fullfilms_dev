@@ -1,9 +1,9 @@
 import React from "react"
 import { useHistory } from "react-router"
 import "./NotFoundPage.scss"
+import sadCat from './cat.jpg'
 
 const NotFoundPage = () => {
-  const sadCat = `https://data.whicdn.com/images/347582182/original.jpg`
 
   const history = useHistory()
 

@@ -1,12 +1,22 @@
+@import '../../styles/mixins.scss';
+
 .cat {
   width: 300px;
   height: 300px;
+  @include mobileL {
+    width: 80%;
+  }
   img {
     width: 100%;
   }
 }
 
 .notFound {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .wrapper {
     display: flex;
     flex-direction: column;

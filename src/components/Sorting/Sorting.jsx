@@ -23,7 +23,7 @@ export default function Sorting() {
 
   return (
     <div className="sorting">
-      <h2 className="sorting__title">Search by genre</h2>
+      <div className="section__title">Search by genre</div>
       <div className="storting__wrapper">
         <Link
           to={`/popular/1`}

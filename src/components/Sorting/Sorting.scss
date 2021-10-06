@@ -1,12 +1,14 @@
+@import '../../styles/mixins.scss';
+
 .sorting {
   padding: 100px 0;
+  @include mobileL {
+    padding: 50px 0;
+  }
 
-  .sorting__title {
-    font-size: 36px;
-    margin: 0;
+  .section__title {
     line-height: 60px;
     color: #ed1543;
-    margin-bottom: 20px;
   }
 
   .storting__wrapper {
@@ -14,7 +16,16 @@
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: center;    
+
+    @include laptop {
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 20px;
+    }
+    @include mobileM {
+      justify-content: center;
+    }
   }
 
   .sorting__btn {
@@ -34,6 +45,41 @@
     transition: border 0.1s ease;
     &:hover {
       border: 1px solid #ed1543;
+    }
+
+    @include laptop {
+      width: 22%;
+    }
+    @include tablet {
+      font-size: 14px;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+    @include mobileL {
+      height: 50px;
+      font-size: 11px;
+      padding: 5px 15px;
+    }
+    @include mobileM {
+      margin: 5px;
+      width: 30%;
+    }
+    @include mobileS {
+      margin: 0;
+      width: 33%;
+      border: none;
+      padding: 5px;
+      background-color: transparent;
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        width: 100%;
+        height: 100%;
+        padding: 10px 5px;
+      }
     }
   }
 }

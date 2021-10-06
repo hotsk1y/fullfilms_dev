@@ -15,12 +15,10 @@ export default function MovieItem({ id, title, image }) {
 
   return (
     <div className="movie__item-wrapper">
-      <div className="movie__item">
-        <Link to={`/info/${id}`}>
+        <Link to={`/info/${id}`} className="movie__item" >
           <div className="movie__item-img" style={styles}></div>
           <div className="movie__item-title">{title}</div>
         </Link>
-      </div>
     </div>
   )
 }

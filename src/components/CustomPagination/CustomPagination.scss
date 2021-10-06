@@ -1,6 +1,30 @@
+@import '../../styles/mixins.scss';
+
 .pagination {
   margin-top: 20px;
   margin-bottom: 75px;
   display: flex;
   justify-content: center;
+
+  @include mobileL {
+    display: none;
+  }
+}
+
+.pagination__small {
+  display: none;
+  margin-top: 20px;
+  margin-bottom: 75px;
+  justify-content: center;
+  align-items: center;
+
+  .MuiPagination-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @include mobileL {
+    display: flex;
+  }
 }

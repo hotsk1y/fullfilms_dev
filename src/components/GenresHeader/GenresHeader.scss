@@ -1,3 +1,5 @@
+@import '../../styles/mixins.scss';
+
 .genresHeader {
   display: flex;
   justify-content: center;
@@ -6,6 +8,12 @@
   padding: 0 50px;
   height: 70px;
   background: #111;
+  @include tablet {
+    padding: 0 20px;
+  }
+  @include mobileL {
+    padding: 0 10px;
+  }
 
   .sorting .sorting__btn:hover {
     border: 5px solid #ed1543;
@@ -20,6 +28,13 @@
     border: none;
     background: none;
     cursor: pointer;
+
+    @include tablet {
+      height: 35px;
+    }
+    @include mobileL {
+      height: 30px;
+    }
     img {
       height: 100%;
       filter: invert(100%);
@@ -29,9 +44,23 @@
       top: 15px;
       right: 70px;
       height: 50px;
+      @include tablet {
+        top: 10px;
+        right: 25px;
+      }
+      @include mobileL {
+        top: 10px;
+        right: 15px;
+      }
       img {
         height: 40px;
         filter: invert(100%);
+        @include tablet {
+          height: 35px;
+        }
+        @include mobileL {
+          height: 30px;
+        }
       }
     }
   }
@@ -66,6 +95,28 @@
     color: #fff;
     width: 33%;
     justify-content: start;
+
+    @include tablet {
+      font-size: 16px;
+      img {
+        height: 20px;
+      }
+    }
+    @include mobileL {
+      font-size: 14px;
+      img {
+        height: 20px;
+        margin-right: 5px;
+      }
+    }
+    @include mobileM {
+      span {
+        display: none;
+      }
+      img {
+        height: 30px;
+      }
+    }
     img {
       filter: invert(100%);
     }

@@ -35,20 +35,36 @@ const CustomPagination = ({ activePage, query, type }) => {
   console.log(activePage)
 
   return (
-    <div className="pagination">
-      <Pagination
-        count={totalPages}
-        shape="rounded"
-        onChange={e => {
-          handlePageChange(e.target.textContent)
-        }}
-        hideNextButton
-        hidePrevButton
-        size="large"
-        siblingCount={4}
-        defaultPage={Number(activePage)}
-      />
-    </div>
+    <>
+      <div className="pagination">
+        <Pagination
+          count={totalPages}
+          shape="rounded"
+          onChange={e => {
+            handlePageChange(e.target.textContent)
+          }}
+          hideNextButton
+          hidePrevButton
+          size="large"
+          siblingCount={4}
+          defaultPage={Number(activePage)}
+        />
+      </div>
+      <div className="pagination__small">
+        <Pagination
+          count={totalPages}
+          shape="rounded"
+          onChange={e => {
+            handlePageChange(e.target.textContent)
+          }}
+          hideNextButton
+          hidePrevButton
+          size="small"
+          siblingCount={2}
+          defaultPage={Number(activePage)}
+        />
+      </div>
+    </>
   )
 }
 
