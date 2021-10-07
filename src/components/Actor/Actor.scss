@@ -27,13 +27,17 @@
     border-radius: 15px;
     border: 5px solid #222;
 
+    @media (max-width: 600px){
+      width: 100%;
+    }
     @include mobileL {
       width: 100%;
       height: 215px;
     }
     @include mobileS {
       width: 100%;
-      height: 190px;
+      height: auto;
+      align-items: center;
     }
 
     .actor__img {
