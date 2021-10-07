@@ -23,7 +23,7 @@
       width: 100%;
       padding: 0 20px;
     }
-    @include mobileM {
+    @include mobileL {
       justify-content: center;
     }
   }
@@ -54,19 +54,19 @@
       font-size: 14px;
       margin: 0;
       margin-bottom: 20px;
+      &:hover {
+        border: none;
+      }
     }
     @include mobileL {
       height: 50px;
       font-size: 11px;
       padding: 5px 15px;
-    }
-    @include mobileM {
+      width: 45%;
       margin: 5px;
-      width: 30%;
     }
     @include mobileS {
       margin: 0;
-      width: 33%;
       border: none;
       padding: 5px;
       background-color: transparent;

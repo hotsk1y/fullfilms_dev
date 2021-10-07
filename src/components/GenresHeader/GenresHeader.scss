@@ -1,8 +1,8 @@
-@import '../../styles/mixins.scss';
+@import "../../styles/mixins.scss";
 
 .genresHeader {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   // padding: 20px 50px 0;
   padding: 0 50px;
@@ -20,11 +20,11 @@
   }
 
   .genres__btn {
+    width: 30%;
     height: 50px;
-    width: 33%;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     border: none;
     background: none;
     cursor: pointer;
@@ -40,9 +40,9 @@
       filter: invert(100%);
     }
     &.close {
-      position: absolute;
-      top: 15px;
-      right: 70px;
+      float: right;
+      margin-right: 10px;
+      margin-top: 10px;
       height: 50px;
       @include tablet {
         top: 10px;
@@ -52,9 +52,11 @@
         top: 10px;
         right: 15px;
       }
+
       img {
         height: 40px;
         filter: invert(100%);
+
         @include tablet {
           height: 35px;
         }
@@ -67,34 +69,39 @@
 
   .logo {
     height: 50px;
-    width: 33%;
     cursor: pointer;
+    width: 30%;
     img {
       height: 100%;
     }
   }
 
   .genres__sorting-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #111;
-    transform: translate3d(100%, 0, 0);
-    transition: all 0.3s ease-out;
-    z-index: 99;
+    position: fixed;
+    transform: translateX(100vw);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+
     &.active {
-      transform: translate3d(0, 0, 0);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      background-color: #111;
+      transform: translateX(0);
+      z-index: 4;
+      margin-bottom: 100px;
+      overflow: auto;
     }
   }
 
   .back {
     position: static;
     color: #fff;
-    width: 33%;
     justify-content: start;
+    width: 30%;
 
     @include tablet {
       font-size: 16px;
@@ -103,13 +110,6 @@
       }
     }
     @include mobileL {
-      font-size: 14px;
-      img {
-        height: 20px;
-        margin-right: 5px;
-      }
-    }
-    @include mobileM {
       span {
         display: none;
       }

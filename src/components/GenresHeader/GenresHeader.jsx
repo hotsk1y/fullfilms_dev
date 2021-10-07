@@ -42,10 +42,6 @@ const GenresHeader = () => {
     window.scrollTo(0, 0)
   }
 
-  useEffect(() => {
-    document.body.style.overflowX = "hidden"
-  }, [])
-
   return (
     <div className="genresHeader">
       <BackButton />
@@ -65,12 +61,14 @@ const GenresHeader = () => {
             : "genres__sorting-wrapper"
         }
       >
+        <div className="header__btn-wrapper">
         <button className="genres__btn close" onClick={() => handleClose()}>
           <img
             src={close}
             alt="close"
           />
         </button>
+        </div>
         <Sorting />
       </div>
     </div>

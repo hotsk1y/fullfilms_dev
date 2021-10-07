@@ -59,7 +59,7 @@ const CustomPagination = ({ activePage, query, type }) => {
           }}
           hideNextButton
           hidePrevButton
-          size="small"
+          size="medium"
           siblingCount={2}
           defaultPage={Number(activePage)}
         />
