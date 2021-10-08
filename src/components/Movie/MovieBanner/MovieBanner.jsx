@@ -50,7 +50,7 @@ const MovieBanner = ({ image, background, info }) => {
 
   useEffect(() => {
     setMovieVideoLinkEn(
-      `https://api.themoviedb.org/3/movie/${info.id}/videos?api_key=d3b9f599977e9ade8cffaa24eefacbc9`,
+      `https://api.themoviedb.org/3/movie/${info.id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
     )
     getTrailer()
   }, [getTrailer])
