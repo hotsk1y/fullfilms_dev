@@ -35,7 +35,7 @@ export default function Home() {
         setHeroTitle(trailerMovies[i].title)
         setHeroDescr(trailerMovies[i].overview)
         setHeroVideoLinkEn(
-          `https://api.themoviedb.org/3/movie/${trailerMovies[i].id}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
+          `https://api.themoviedb.org/3/movie/${trailerMovies[i].id}/videos?api_key=d3b9f599977e9ade8cffaa24eefacbc9`,
         )
         break
       }
