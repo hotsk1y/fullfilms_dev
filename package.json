@@ -1,5 +1,5 @@
 {
-  "name": "full-films",
+  "name": "fullfilms",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "CI=false react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -49,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://fullfilms.vercel.app/"
+  "homepage": "./"
 }
