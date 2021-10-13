@@ -95,7 +95,7 @@ export const fetchGenres = async () => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`,
     )
-    console.log(data)
+    // console.log(data)
     return data
   } catch (error) {
     console.log("genres error")
