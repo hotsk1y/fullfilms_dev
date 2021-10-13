@@ -2,7 +2,7 @@
 import React from "react"
 import "./GenrePage.scss"
 import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react/cjs/react.development"
+import { useEffect, useState } from "react"
 import Loader from "../Loader/Loader"
 import NotFoundPage from "../NotFoundPage/NotFoundPage"
 import { fetchGenres } from "../../fetchingData"

@@ -2,7 +2,7 @@ import React from "react"
 import "./Sorting.scss"
 import { Link } from "react-router-dom"
 import { fetchGenres } from "../../fetchingData"
-import { useState, useEffect } from "react/cjs/react.development"
+import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { setIsActiveAction } from "../../store/reducers/moviesReducer"
 

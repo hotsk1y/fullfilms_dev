@@ -3,7 +3,7 @@
 import React from "react"
 import "./Movie.scss"
 import { useParams } from "react-router-dom"
-import { useCallback, useEffect, useState } from "react/cjs/react.development"
+import { useCallback, useEffect, useState } from "react"
 import { fetchMovieInfo, fetchMovieCredits } from "../../fetchingData"
 import Loader from "../Loader/Loader"
 import MovieBanner from "./MovieBanner/MovieBanner"

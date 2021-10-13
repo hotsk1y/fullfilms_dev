@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react"
-import { useState, useCallback, useEffect } from "react/cjs/react.development"
+import { useState, useCallback, useEffect } from "react"
 import "./MovieBanner.scss"
 import axios from "axios"
 import BackButton from "../../BackButton/BackButton"
