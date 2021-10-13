@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from 'react-redux'
 
 import { useEffect } from "react"
 
-import { BrowserRouter, Route } from "react-router-dom"
+import { HashRouter, Route } from "react-router-dom"
 import { Switch } from "react-router-dom"
 
 import { fetchNowPlaying } from "./fetchingData"
@@ -33,7 +33,7 @@ const App = () => {
   }, [])
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         {isLoaded && !isError ? (
           <>
@@ -71,7 +71,7 @@ const App = () => {
           <Loader />
         )}
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
