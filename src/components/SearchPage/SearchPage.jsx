@@ -39,11 +39,11 @@ export default function Search() {
 
   useEffect(() => {
     fetchSearch(query).then(data => {
-      console.log(data)
+      // console.log(data)
       setSearchResults(data.results)
       dispatch(setNumberOfPagesAction(data.total_pages))
     })
-    console.log(searchResults)
+    // console.log(searchResults)
   }, [query, page, searchingPage])
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-fallthrough */
 import React from "react"
 import "./Popular.scss"
@@ -27,7 +28,7 @@ export default function Popular() {
     setIsLoaded(false)
     fetchPopular(popularPage)
       .then(data => {
-        console.log(data)
+        // console.log(data)
         dispatch(setMoviesAction(data.results))
         dispatch(setNumberOfPagesAction(data.total_pages))
         setIsLoaded(true)
@@ -38,8 +39,6 @@ export default function Popular() {
         setIsLoaded(true)
       })
   }, [popularPage])
-
-  console.log(movies)
 
   useEffect(() => {
     document.body.style.overflowX = "hidden"

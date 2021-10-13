@@ -32,7 +32,7 @@ const CustomPagination = ({ activePage, query, type }) => {
     }
   }
 
-  console.log(activePage)
+  // console.log(activePage)
 
   return (
     <>

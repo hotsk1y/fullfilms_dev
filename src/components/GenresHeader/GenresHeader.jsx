@@ -1,6 +1,5 @@
 import React from "react"
 import "./GenresHeader.scss"
-import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import BackButton from "../BackButton/BackButton"
 import Sorting from "../Sorting/Sorting"

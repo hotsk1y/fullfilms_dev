@@ -16,7 +16,6 @@ export default function Header({
   setPage,
 }) {
   const cleanData = () => {
-    console.log(123)
     setQuery("")
     setPage(1)
     setIsSearch(false)
