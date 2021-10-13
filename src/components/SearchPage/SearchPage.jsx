@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./SearchPage.scss"
 import { useParams } from "react-router"
-import { useEffect } from "react/cjs/react.development"
 import axios from "axios"
 import Content from "../Content/Content"
 import Loader from "../Loader/Loader"
