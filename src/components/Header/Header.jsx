@@ -30,7 +30,6 @@ export default function Header({
   const handleKeyDown = useCallback(
     e => {
       if (e.keyCode === 13) {
-        // console.log(query)
         history.push(`/search/${page}/${query}`)
       }
     },

@@ -32,8 +32,6 @@ const CustomPagination = ({ activePage, query, type }) => {
     }
   }
 
-  // console.log(activePage)
-
   return (
     <>
       <div className="pagination">

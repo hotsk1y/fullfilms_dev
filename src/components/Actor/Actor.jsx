@@ -44,7 +44,6 @@ export default function Actor() {
 
     fetchActorInfo(actorId)
       .then(res => {
-        // console.log(res)
         dispatch(setActorInfoAction(res))
 
 
@@ -58,7 +57,6 @@ export default function Actor() {
           const getAge = () => {
             const bd = new Date(res.birthday)
             const now = new Date()
-            // console.log(bd, now)
 
             if (bd.getMonth() > now.getMonth()) {
               const result = now.getFullYear() - bd.getFullYear()

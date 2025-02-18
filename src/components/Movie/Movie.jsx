@@ -125,7 +125,6 @@ export default function Movie() {
       .then(res => {
         dispatch(setActorsAction(res.cast))
         getMovieCredits(res.crew)
-        // console.log(dataResults)
         dispatch(setDirectorAction(dataResults.directorJob))
         dispatch(setScreenplayAction(dataResults.screenplayJob))
         dispatch(setProducerAction(dataResults.producerJob))

@@ -28,7 +28,6 @@ export default function Popular() {
     setIsLoaded(false)
     fetchPopular(popularPage)
       .then(data => {
-        // console.log(data)
         dispatch(setMoviesAction(data.results))
         dispatch(setNumberOfPagesAction(data.total_pages))
         setIsLoaded(true)

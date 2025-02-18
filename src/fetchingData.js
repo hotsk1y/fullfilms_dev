@@ -18,7 +18,6 @@ export const fetchMovieInfo = async id => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
     )
-    // console.log(data)
     const info = {
       id: data.id,
       title: data.title,
@@ -43,7 +42,6 @@ export const fetchMovieCredits = async id => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}`,
     )
-    // console.log(data)
     return data
   } catch (error) {
     console.log("movie credit error")
@@ -56,7 +54,6 @@ export const fetchActorFilms = async id => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}`,
     )
-    // console.log(data)
     return data
   } catch (error) {
     console.log("actor movies error")
@@ -69,7 +66,6 @@ export const fetchActorInfo = async id => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/person/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
     )
-    // console.log(data)
     return data
   } catch (error) {
     console.log("actor info error")
@@ -82,7 +78,6 @@ export const fetchActors = async (query, page) => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/search/person?api_key=${process.env.REACT_APP_API_KEY}&query=${query}&page=${page}`,
     )
-    // console.log(data)
     return data
   } catch (error) {
     console.log("actor info error")
@@ -95,7 +90,6 @@ export const fetchGenres = async () => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`,
     )
-    // console.log(data)
     return data
   } catch (error) {
     console.log("genres error")
@@ -108,7 +102,6 @@ export const fetchMoviesWithGenre = async (genre, page = 1) => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&sort_by=popularity.desc&page=${page}&with_genres=${genre}`,
     )
-    // console.log(data)
     return data
   } catch (error) {
     console.log("genres error")
@@ -121,7 +114,6 @@ export const fetchNowPlaying = async () => {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&page=1`,
     )
-    // console.log(data)
     return data
   } catch (error) {
     console.log("now playing error")
