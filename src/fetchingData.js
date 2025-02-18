@@ -5,7 +5,6 @@ export const fetchPopular = async (page=1) => {
     const response = await axios.get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`,
     )
-    // const films = response.data.results
     return response.data
   } catch (error) {
     console.log(error)
